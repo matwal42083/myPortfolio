@@ -1,0 +1,872 @@
+--- /dev/null
++++ b/babel.config.cjs
+@@ -0,0 +1,6 @@
++module.exports = {
++  presets: [
++    ['@babel/preset-env', { targets: { node: 'current' } }],
++    ['@babel/preset-react', { runtime: 'automatic' }],
++  ],
++};
+--- /dev/null
++++ b/jest.config.cjs
+@@ -0,0 +1,11 @@
++module.exports = {
++  testEnvironment: 'jest-environment-jsdom',
++  setupFilesAfterEnv: ['<rootDir>/jest.setup.js'],
++  moduleNameMapper: {
++    '\\.(css|less|scss|sass)$': 'identity-obj-proxy',
++  },
++  transform: {
++    '^.+\\.(js|jsx)$': 'babel-jest',
++  },
++  testMatch: ['<rootDir>/__tests__/**/*.test.(js|jsx)'],
++};
+--- /dev/null
++++ b/jest.setup.js
+@@ -0,0 +1 @@
++import '@testing-library/jest-dom';
+--- /dev/null
++++ b/src/data/portfolioData.js
+@@ -0,0 +1,115 @@
++export const profileData = {
++  name: 'Alex Morgan',
++  role: 'Full-Stack & React Frontend Developer',
++  tagline: 'Building resilient, test-driven web applications with React, Vite, and strict Spec-Driven Development.',
++  bio: 'I specialize in transforming complex multi-page workflows into modular, fast, and maintainable React applications backed by automated Jest and React Testing Library suites.',
++  resumePdfUrl: '/resume-alex-morgan.pdf',
++  resumeSummary: {
++    experience: [
++      {
++        id: 'exp-1',
++        title: 'Frontend & Full-Stack Developer',
++        organization: 'Independent Engineering Portfolio',
++        period: '2024 - Present',
++        highlights: [
++          'Architected modular React + Vite applications using Specification-Driven and Test-Driven Development.',
++          'Built side-by-side live demo and GitHub repository review portals for technical hiring teams.',
++        ],
++      },
++    ],
++    coreCompetencies: [
++      'React 18 & React Router v6 Client-Side Routing',
++      'Jest & React Testing Library Red-to-Green Workflows',
++      'Accessible Semantic HTML5, Modern CSS Grid/Flexbox, and ES6+ JavaScript',
++    ],
++  },
++  coverLetter: {
++    greeting: 'Dear Hiring Manager & Technical Recruiting Team,',
++    bodyParagraphs: [
++      'Thank you for reviewing my engineering portfolio. I rebuilt this platform from the ground up with React, Vite, and React Router so every view is isolated, fast, and verifiable.',
++      'Whether inspecting my practice builds or full-stack applications, you can evaluate both the live interactive preview and the underlying GitHub repository side by side.',
++    ],
++    signOff: 'Sincerely, Alex Morgan',
++  },
++  socialLinks: {
++    github: 'https://github.com/example-developer',
++    linkedin: 'https://linkedin.com/in/example-developer',
++    email: 'mailto:alex.morgan@example.com',
++  },
++};
++
++export const skillsData = [
++  {
++    category: 'Frontend Engineering',
++    items: ['React 18', 'React Router v6', 'JavaScript (ES6+)', 'HTML5', 'CSS3 / Responsive Design'],
++  },
++  {
++    category: 'Testing & Quality Assurance',
++    items: ['Jest', 'React Testing Library', 'TDD Red-Green-Refactor', 'Edge-Case Validation'],
++  },
++  {
++    category: 'Build Tools & Workflow',
++    items: ['Vite', 'Git & GitHub', 'WSL 2 Ubuntu', 'Antivibe SDD/TDD/LDD'],
++  },
++];
++
++export const credentialsData = {
++  certifications: [
++    {
++      id: 'cert-1',
++      title: 'Front-End Development Libraries Certification',
++      issuer: 'freeCodeCamp',
++      date: '2025',
++      skills: ['React', 'State Management', 'Component Architecture'],
++      verifyUrl: 'https://www.freecodecamp.org/certification/example/front-end-development-libraries',
++    },
++    {
++      id: 'cert-2',
++      title: 'JavaScript Algorithms and Data Structures',
++      issuer: 'freeCodeCamp',
++      date: '2025',
++      skills: ['ES6+', 'Functional Programming', 'Algorithmic Complexity'],
++      verifyUrl: 'https://www.freecodecamp.org/certification/example/javascript-algorithms-and-data-structures',
++    },
++    {
++      id: 'cert-3',
++      title: 'Full-Stack Testing & Architecture Specialization',
++      issuer: 'Antivibe Engineering Academy',
++      date: '2026',
++      skills: ['SDD', 'Jest', 'React Testing Library'],
++      verifyUrl: null,
++    },
++  ],
++  education: [
++    {
++      id: 'edu-1',
++      institution: 'Software Engineering Curriculum & Bootcamp',
++      program: 'Full-Stack Web Development Track',
++      period: '2024 - 2026',
++      focus: 'Modern JavaScript, React Ecosystem, Automated Testing, and Clean Architecture.',
++    },
++  ],
++};
++
++export const projectsData = [
++  {
++    id: 'proj-1',
++    title: 'React Vite Multi-Page Portfolio',
++    category: 'Frontend',
++    summary: 'Modular multi-route portfolio engineered with React Router, integrated credentials hub, and side-by-side GitHub repository showcase.',
++    techStack: ['React 18', 'Vite', 'React Router', 'Jest'],
++    liveUrl: 'https://example-portfolio-demo.vercel.app',
++    repoUrl: 'https://github.com/example-developer/myPortfolio',
++    repoBranch: 'main',
++    primaryLanguage: 'JavaScript (JSX)',
++  },
++  {
++    id: 'proj-2',
++    title: 'Algorithmic Task Matrix Sandbox',
++    category: 'Practice',
++    summary: 'Interactive practice application demonstrating state transitions, array filtering, and accessible form validation.',
++    techStack: ['JavaScript', 'HTML5', 'CSS3', 'Jest'],
++    liveUrl: null,
++    repoUrl: 'https://github.com/example-developer/task-matrix-sandbox',
++    repoBranch: 'main',
++    primaryLanguage: 'JavaScript',
++  },
++];
+--- /dev/null
++++ b/src/utils/portfolioHelpers.js
+@@ -0,0 +1,68 @@
++export function filterProjectsByCategory(projects, selectedCategory) {
++  if (!Array.isArray(projects)) {
++    return [];
++  }
++  if (!selectedCategory || selectedCategory === 'All') {
++    return projects;
++  }
++  return projects.filter((project) => project.category === selectedCategory);
++}
++
++export function normalizeProjectLinks(project = {}) {
++  const cleanLiveUrl = typeof project.liveUrl === 'string' ? project.liveUrl.trim() : '';
++  const cleanRepoUrl = typeof project.repoUrl === 'string' ? project.repoUrl.trim() : '';
++
++  const hasLivePreview = Boolean(cleanLiveUrl);
++  const hasRepo = Boolean(cleanRepoUrl);
++
++  return {
++    hasLivePreview,
++    liveHref: hasLivePreview ? cleanLiveUrl : null,
++    liveLabel: hasLivePreview ? 'Launch Live Preview' : 'Preview Unavailable',
++    hasRepo,
++    repoHref: hasRepo ? cleanRepoUrl : null,
++    repoLabel: hasRepo ? 'View Source on GitHub' : 'Repo Pending',
++  };
++}
++
++export function normalizeCredentialStatus(certification = {}, resumePdfUrl = null) {
++  const cleanVerifyUrl =
++    typeof certification.verifyUrl === 'string' ? certification.verifyUrl.trim() : '';
++  const cleanPdfUrl = typeof resumePdfUrl === 'string' ? resumePdfUrl.trim() : '';
++
++  const isVerified = Boolean(cleanVerifyUrl);
++  const hasResumePdf = Boolean(cleanPdfUrl);
++
++  return {
++    isVerified,
++    verifyHref: isVerified ? cleanVerifyUrl : null,
++    badgeText: isVerified ? 'Verified Credential' : 'In Progress / Verification Pending',
++    hasResumePdf,
++    resumeFallbackNotice: hasResumePdf
++      ? 'Download Official Resume (PDF)'
++      : 'PDF Updating — View Web Resume',
++  };
++}
++
++export function validateContactForm(formValues = {}) {
++  const errors = {};
++  const name = typeof formValues.name === 'string' ? formValues.name.trim() : '';
++  const email = typeof formValues.email === 'string' ? formValues.email.trim() : '';
++  const message = typeof formValues.message === 'string' ? formValues.message.trim() : '';
++
++  if (!name) {
++    errors.name = 'Name is required.';
++  }
++
++  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
++  if (!email) {
++    errors.email = 'Email is required.';
++  } else if (!emailRegex.test(email)) {
++    errors.email = 'Please enter a valid email address.';
++  }
++
++  if (!message) {
++    errors.message = 'Message cannot be empty.';
++  }
++
++  return {
++    isValid: Object.keys(errors).length === 0,
++    errors,
++  };
++}
+--- /dev/null
++++ b/src/components/Navbar.jsx
+@@ -0,0 +1,28 @@
++import React from 'react';
++import { NavLink } from 'react-router-dom';
++
++export default function Navbar() {
++  const navItems = [
++    { to: '/', label: 'Home' },
++    { to: '/about', label: 'About & Skills' },
++    { to: '/credentials', label: 'Credentials & Resume' },
++    { to: '/projects', label: 'Project Gallery' },
++    { to: '/contact', label: 'Contact' },
++  ];
++
++  return (
++    <header className="site-header">
++      <nav aria-label="Primary Navigation" className="navbar">
++        <span className="brand-title">Alex Morgan | Portfolio</span>
++        <ul className="nav-list">
++          {navItems.map((item) => (
++            <li key={item.to}>
++              <NavLink
++                to={item.to}
++                className={({ isActive }) => (isActive ? 'nav-link active' : 'nav-link')}
++              >
++                {item.label}
++              </NavLink>
++            </li>
++          ))}
++        </ul>
++      </nav>
++    </header>
++  );
++}
+--- /dev/null
++++ b/src/components/Footer.jsx
+@@ -0,0 +1,26 @@
++import React from 'react';
++import { profileData } from '../data/portfolioData';
++
++export default function Footer() {
++  return (
++    <footer className="site-footer">
++      <p>© {new Date().getFullYear()} {profileData.name}. Built with React, Vite & Antivibe TDD.</p>
++      <div className="footer-links">
++        <a
++          href={profileData.socialLinks.github}
++          target="_blank"
++          rel="noopener noreferrer"
++        >
++          GitHub Profile
++        </a>
++        <a
++          href={profileData.socialLinks.linkedin}
++          target="_blank"
++          rel="noopener noreferrer"
++        >
++          LinkedIn Profile
++        </a>
++      </div>
++    </footer>
++  );
++}
+--- /dev/null
++++ b/src/components/ProjectCard.jsx
+@@ -0,0 +1,57 @@
++import React from 'react';
++import { normalizeProjectLinks } from '../utils/portfolioHelpers';
++
++export default function ProjectCard({ project }) {
++  const linkState = normalizeProjectLinks(project);
++
++  return (
++    <article className="project-card" data-testid={`project-card-${project.id}`}>
++      <div className="project-card-header">
++        <span className="project-category-badge">{project.category}</span>
++        <h3>{project.title}</h3>
++        <p>{project.summary}</p>
++        <ul className="tech-stack-list" aria-label={`${project.title} Tech Stack`}>
++          {project.techStack.map((tech) => (
++            <li key={tech} className="tech-tag">{tech}</li>
++          ))}
++        </ul>
++      </div>
++
++      <div className="project-showcase-split">
++        <section className="showcase-pane preview-pane" aria-label="Live Application Preview">
++          <h4>Live App Preview</h4>
++          {linkState.hasLivePreview ? (
++            <a
++              href={linkState.liveHref}
++              target="_blank"
++              rel="noopener noreferrer"
++              className="btn-preview"
++            >
++              {linkState.liveLabel}
++            </a>
++          ) : (
++            <span className="fallback-badge" role="status">{linkState.liveLabel}</span>
++          )}
++        </section>
++
++        <section className="showcase-pane repo-pane" aria-label="GitHub Repository Showcase">
++          <h4>GitHub Repository</h4>
++          <p className="repo-meta">
++            Branch: <strong>{project.repoBranch}</strong> | Language: <strong>{project.primaryLanguage}</strong>
++          </p>
++          {linkState.hasRepo ? (
++            <a
++              href={linkState.repoHref}
++              target="_blank"
++              rel="noopener noreferrer"
++              className="btn-repo"
++            >
++              {linkState.repoLabel}
++            </a>
++          ) : (
++            <span className="fallback-badge" role="status">{linkState.repoLabel}</span>
++          )}
++        </section>
++      </div>
++    </article>
++  );
++}
+--- /dev/null
++++ b/src/pages/Home.jsx
+@@ -0,0 +1,27 @@
++import React from 'react';
++import { Link } from 'react-router-dom';
++import { profileData, projectsData, credentialsData } from '../data/portfolioData';
++
++export default function Home() {
++  return (
++    <section className="page-section home-page">
++      <div className="hero-banner">
++        <p className="hero-role">{profileData.role}</p>
++        <h1>{profileData.name}</h1>
++        <p className="hero-tagline">{profileData.tagline}</p>
++        <div className="hero-cta-group">
++          <Link to="/projects" className="btn-primary">Explore Project Gallery</Link>
++          <Link to="/credentials" className="btn-secondary">View Resume & Credentials</Link>
++        </div>
++      </div>
++      <div className="highlights-strip">
++        <div className="highlight-stat">
++          <strong>{projectsData.length}+</strong>
++          <span>Showcased Projects & GitHub Repos</span>
++        </div>
++        <div className="highlight-stat">
++          <strong>{credentialsData.certifications.length}</strong>
++          <span>Development Certifications</span>
++        </div>
++      </div>
++    </section>
++  );
++}
+--- /dev/null
++++ b/src/pages/About.jsx
+@@ -0,0 +1,26 @@
++import React from 'react';
++import { profileData, skillsData } from '../data/portfolioData';
++
++export default function About() {
++  return (
++    <section className="page-section about-page">
++      <h1>About & Technical Skills</h1>
++      <p className="about-bio">{profileData.bio}</p>
++      <div className="skills-grid">
++        {skillsData.map((group) => (
++          <article key={group.category} className="skill-card">
++            <h2>{group.category}</h2>
++            <ul>
++              {group.items.map((skill) => (
++                <li key={skill}>{skill}</li>
++              ))}
++            </ul>
++          </article>
++        ))}
++      </div>
++    </section>
++  );
++}
+--- /dev/null
++++ b/src/pages/Credentials.jsx
+@@ -0,0 +1,105 @@
++import React, { useState } from 'react';
++import { profileData, credentialsData } from '../data/portfolioData';
++import { normalizeCredentialStatus } from '../utils/portfolioHelpers';
++
++export default function Credentials({ resumePdfOverride }) {
++  const [activeDocTab, setActiveDocTab] = useState('resume');
++  const effectivePdfUrl =
++    resumePdfOverride !== undefined ? resumePdfOverride : profileData.resumePdfUrl;
++  const resumeStatus = normalizeCredentialStatus({}, effectivePdfUrl);
++
++  return (
++    <section className="page-section credentials-page">
++      <h1>Education, Certifications & Resume</h1>
++
++      <section className="resume-cover-hub" aria-label="Resume and Cover Letter Hub">
++        <div className="hub-controls">
++          <div className="tab-buttons" role="tablist">
++            <button
++              type="button"
++              role="tab"
++              aria-selected={activeDocTab === 'resume'}
++              onClick={() => setActiveDocTab('resume')}
++            >
++              Web Resume
++            </button>
++            <button
++              type="button"
++              role="tab"
++              aria-selected={activeDocTab === 'cover-letter'}
++              onClick={() => setActiveDocTab('cover-letter')}
++            >
++              Cover Letter
++            </button>
++          </div>
++          {resumeStatus.hasResumePdf ? (
++            <a
++              href={effectivePdfUrl}
++              target="_blank"
++              rel="noopener noreferrer"
++              className="btn-download-pdf"
++            >
++              {resumeStatus.resumeFallbackNotice}
++            </a>
++          ) : (
++            <span className="pdf-fallback-badge" role="status">
++              {resumeStatus.resumeFallbackNotice}
++            </span>
++          )}
++        </div>
++
++        {activeDocTab === 'resume' ? (
++          <div className="doc-panel resume-panel" data-testid="resume-panel">
++            <h2>Structured Resume Summary</h2>
++            {profileData.resumeSummary.experience.map((exp) => (
++              <div key={exp.id} className="resume-item">
++                <h3>{exp.title} — {exp.organization}</h3>
++                <p>{exp.period}</p>
++                <ul>
++                  {exp.highlights.map((item) => (
++                    <li key={item}>{item}</li>
++                  ))}
++                </ul>
++              </div>
++            ))}
++          </div>
++        ) : (
++          <div className="doc-panel cover-letter-panel" data-testid="cover-letter-panel">
++            <h2>Candidate Cover Letter</h2>
++            <p>{profileData.coverLetter.greeting}</p>
++            {profileData.coverLetter.bodyParagraphs.map((paragraph) => (
++              <p key={paragraph}>{paragraph}</p>
++            ))}
++            <p><strong>{profileData.coverLetter.signOff}</strong></p>
++          </div>
++        )}
++      </section>
++
++      <section className="certifications-section" aria-label="Development Certifications">
++        <h2>Development Certifications</h2>
++        <div className="certifications-grid">
++          {credentialsData.certifications.map((cert) => {
++            const status = normalizeCredentialStatus(cert, effectivePdfUrl);
++            return (
++              <article key={cert.id} className="cert-card">
++                <h3>{cert.title}</h3>
++                <p>{cert.issuer} ({cert.date})</p>
++                <span className="cert-badge">{status.badgeText}</span>
++                {status.isVerified && (
++                  <a href={status.verifyHref} target="_blank" rel="noopener noreferrer">
++                    Verify Credential
++                  </a>
++                )}
++              </article>
++            );
++          })}
++        </div>
++      </section>
++
++      <section className="education-section" aria-label="Education Timeline">
++        <h2>Education & Coursework</h2>
++        {credentialsData.education.map((edu) => (
++          <article key={edu.id} className="education-card">
++            <h3>{edu.program}</h3>
++            <p>{edu.institution} | {edu.period}</p>
++            <p>{edu.focus}</p>
++          </article>
++        ))}
++      </section>
++    </section>
++  );
++}
+--- /dev/null
++++ b/src/pages/Projects.jsx
+@@ -0,0 +1,52 @@
++import React, { useState } from 'react';
++import { projectsData } from '../data/portfolioData';
++import { filterProjectsByCategory } from '../utils/portfolioHelpers';
++import ProjectCard from '../components/ProjectCard';
++
++const CATEGORIES = ['All', 'Practice', 'Frontend', 'Full-Stack'];
++
++export default function Projects({ customProjects = projectsData }) {
++  const [selectedCategory, setSelectedCategory] = useState('All');
++  const visibleProjects = filterProjectsByCategory(customProjects, selectedCategory);
++
++  return (
++    <section className="page-section projects-page">
++      <h1>Project Gallery & GitHub Showcase</h1>
++      <p>Inspect live interactive builds alongside their source code repositories.</p>
++
++      <div className="filter-bar" role="group" aria-label="Project Category Filter">
++        {CATEGORIES.map((category) => (
++          <button
++            key={category}
++            type="button"
++            className={selectedCategory === category ? 'filter-btn active' : 'filter-btn'}
++            onClick={() => setSelectedCategory(category)}
++          >
++            {category}
++          </button>
++        ))}
++      </div>
++
++      {visibleProjects.length > 0 ? (
++        <div className="project-gallery-grid">
++          {visibleProjects.map((project) => (
++            <ProjectCard key={project.id} project={project} />
++          ))}
++        </div>
++      ) : (
++        <div className="empty-gallery-state" role="status">
++          <p>No projects found in this category</p>
++          <button
++            type="button"
++            onClick={() => setSelectedCategory('All')}
++            className="btn-reset-filter"
++          >
++            Reset Filter
++          </button>
++        </div>
++      )}
++    </section>
++  );
++}
+--- /dev/null
++++ b/src/pages/Contact.jsx
+@@ -0,0 +1,80 @@
++import React, { useState } from 'react';
++import { validateContactForm } from '../utils/portfolioHelpers';
++
++export default function Contact() {
++  const [formData, setFormData] = useState({ name: '', email: '', message: '' });
++  const [errors, setErrors] = useState({});
++  const [isSubmitted, setIsSubmitted] = useState(false);
++
++  const handleChange = (event) => {
++    const { name, value } = event.target;
++    setFormData((prev) => ({ ...prev, [name]: value }));
++  };
++
++  const handleSubmit = (event) => {
++    event.preventDefault();
++    const validation = validateContactForm(formData);
++    if (!validation.isValid) {
++      setErrors(validation.errors);
++      setIsSubmitted(false);
++      return;
++    }
++    setErrors({});
++    setIsSubmitted(true);
++  };
++
++  return (
++    <section className="page-section contact-page">
++      <h1>Contact & Hiring Inquiries</h1>
++      {isSubmitted && (
++        <div className="submission-success" role="status">
++          Thank you for reaching out! Your message has been validated and prepared.
++        </div>
++      )}
++      <form onSubmit={handleSubmit} noValidate aria-label="Contact Form">
++        <div className="form-group">
++          <label htmlFor="contact-name">Name</label>
++          <input
++            id="contact-name"
++            name="name"
++            type="text"
++            value={formData.name}
++            onChange={handleChange}
++          />
++          {errors.name && <p role="alert">{errors.name}</p>}
++        </div>
++
++        <div className="form-group">
++          <label htmlFor="contact-email">Email</label>
++          <input
++            id="contact-email"
++            name="email"
++            type="email"
++            value={formData.email}
++            onChange={handleChange}
++          />
++          {errors.email && <p role="alert">{errors.email}</p>}
++        </div>
++
++        <div className="form-group">
++          <label htmlFor="contact-message">Message</label>
++          <textarea
++            id="contact-message"
++            name="message"
++            rows="4"
++            value={formData.message}
++            onChange={handleChange}
++          />
++          {errors.message && <p role="alert">{errors.message}</p>}
++        </div>
++
++        <button type="submit">Send Message</button>
++      </form>
++    </section>
++  );
++}
+--- /dev/null
++++ b/src/pages/NotFound.jsx
+@@ -0,0 +1,14 @@
++import React from 'react';
++import { Link } from 'react-router-dom';
++
++export default function NotFound() {
++  return (
++    <section className="page-section not-found-page">
++      <h1>404 - Page Not Found</h1>
++      <p>The portfolio route you requested does not exist.</p>
++      <Link to="/" className="btn-return-home">
++        Return Home
++      </Link>
++    </section>
++  );
++}
+--- a/src/App.jsx
++++ b/src/App.jsx
+@@ -1,35 +1,34 @@
+-import { useState } from 'react'
+-import reactLogo from './assets/react.svg'
+-import viteLogo from '/vite.svg'
+-import './App.css'
++import React from 'react';
++import { BrowserRouter, Routes, Route } from 'react-router-dom';
++import Navbar from './components/Navbar';
++import Footer from './components/Footer';
++import Home from './pages/Home';
++import About from './pages/About';
++import Credentials from './pages/Credentials';
++import Projects from './pages/Projects';
++import Contact from './pages/Contact';
++import NotFound from './pages/NotFound';
++import './App.css';
+ 
+-function App() {
+-  const [count, setCount] = useState(0)
++export function AppRoutes() {
++  return (
++    <div className="app-shell">
++      <Navbar />
++      <main className="main-content">
++        <Routes>
++          <Route path="/" element={<Home />} />
++          <Route path="/about" element={<About />} />
++          <Route path="/credentials" element={<Credentials />} />
++          <Route path="/projects" element={<Projects />} />
++          <Route path="/contact" element={<Contact />} />
++          <Route path="*" element={<NotFound />} />
++        </Routes>
++      </main>
++      <Footer />
++    </div>
++  );
++}
+ 
++export default function App() {
+   return (
+-    <>
+-      <div>
+-        <a href="https://vite.dev" target="_blank">
+-          <img src={viteLogo} className="logo" alt="Vite logo" />
+-        </a>
+-        <a href="https://react.dev" target="_blank">
+-          <img src={reactLogo} className="logo react" alt="React logo" />
+-        </a>
+-      </div>
+-      <h1>Vite + React</h1>
+-      <div className="card">
+-        <button onClick={() => setCount((count) => count + 1)}>
+-          count is {count}
+-        </button>
+-        <p>
+-          Edit <code>src/App.jsx</code> and save to test HMR
+-        </p>
+-      </div>
+-      <p className="read-the-docs">
+-        Click on the Vite and React logos to learn more
+-      </p>
+-    </>
+-  )
++    <BrowserRouter>
++      <AppRoutes />
++    </BrowserRouter>
++  );
+ }
+-
+-export default App
+--- /dev/null
++++ b/__tests__/portfolioHelpers.test.js
+@@ -0,0 +1,72 @@
++import {
++  filterProjectsByCategory,
++  normalizeProjectLinks,
++  normalizeCredentialStatus,
++  validateContactForm,
++} from '../src/utils/portfolioHelpers';
++import { projectsData, credentialsData } from '../src/data/portfolioData';
++
++describe('Portfolio Pure Domain Helpers (SDD-REQ-01 to SDD-REQ-04)', () => {
++  test('filterProjectsByCategory returns all projects for All and filters specific categories', () => {
++    expect(filterProjectsByCategory(projectsData, 'All')).toHaveLength(projectsData.length);
++    const practiceOnly = filterProjectsByCategory(projectsData, 'Practice');
++    expect(practiceOnly.every((item) => item.category === 'Practice')).toBe(true);
++    expect(filterProjectsByCategory(null, 'All')).toEqual([]);
++  });
++
++  test('normalizeProjectLinks handles valid URLs and missing URL fallbacks (Edge Case 2)', () => {
++    const complete = normalizeProjectLinks({
++      liveUrl: 'https://demo.example.com',
++      repoUrl: 'https://github.com/example/repo',
++    });
++    expect(complete.hasLivePreview).toBe(true);
++    expect(complete.hasRepo).toBe(true);
++
++    const incomplete = normalizeProjectLinks({ liveUrl: null, repoUrl: '   ' });
++    expect(incomplete.hasLivePreview).toBe(false);
++    expect(incomplete.liveLabel).toBe('Preview Unavailable');
++    expect(incomplete.hasRepo).toBe(false);
++    expect(incomplete.repoLabel).toBe('Repo Pending');
++  });
++
++  test('normalizeCredentialStatus handles missing verification links and missing PDF fallback (Edge Case 3)', () => {
++    const verified = normalizeCredentialStatus(credentialsData.certifications[0], '/resume.pdf');
++    expect(verified.isVerified).toBe(true);
++    expect(verified.badgeText).toBe('Verified Credential');
++    expect(verified.hasResumePdf).toBe(true);
++
++    const pending = normalizeCredentialStatus({ verifyUrl: null }, '');
++    expect(pending.isVerified).toBe(false);
++    expect(pending.badgeText).toBe('In Progress / Verification Pending');
++    expect(pending.hasResumePdf).toBe(false);
++    expect(pending.resumeFallbackNotice).toBe('PDF Updating — View Web Resume');
++  });
++
++  test('validateContactForm rejects empty or malformed inputs and passes valid payloads (Edge Case 4)', () => {
++    const invalid = validateContactForm({ name: ' ', email: 'not-an-email', message: '' });
++    expect(invalid.isValid).toBe(false);
++    expect(invalid.errors.name).toBe('Name is required.');
++    expect(invalid.errors.email).toBe('Please enter a valid email address.');
++    expect(invalid.errors.message).toBe('Message cannot be empty.');
++
++    const valid = validateContactForm({
++      name: 'Recruiter Jane',
++      email: 'jane@company.com',
++      message: 'Let us schedule an interview!',
++    });
++    expect(valid.isValid).toBe(true);
++    expect(valid.errors).toEqual({});
++  });
++});
+--- /dev/null
++++ b/__tests__/App.test.jsx
+@@ -0,0 +1,68 @@
++import React from 'react';
++import { render, screen, fireEvent } from '@testing-library/react';
++import { MemoryRouter } from 'react-router-dom';
++import { AppRoutes } from '../src/App';
++
++describe('Multi-Page React Router Portfolio Integration (SDD-REQ-05 to SDD-REQ-09)', () => {
++  test('renders Home route with hero introduction and quick CTAs', () => {
++    render(
++      <MemoryRouter initialEntries={['/']}>
++        <AppRoutes />
++      </MemoryRouter>
++    );
++    expect(screen.getByRole('heading', { name: /Alex Morgan/i })).toBeInTheDocument();
++    expect(screen.getByRole('link', { name: /Explore Project Gallery/i })).toBeInTheDocument();
++  });
++
++  test('renders Credentials route, switches between Web Resume and Cover Letter, and displays certifications', () => {
++    render(
++      <MemoryRouter initialEntries={['/credentials']}>
++        <AppRoutes />
++      </MemoryRouter>
++    );
++    expect(screen.getByTestId('resume-panel')).toBeInTheDocument();
++    fireEvent.click(screen.getByRole('tab', { name: /Cover Letter/i }));
++    expect(screen.getByTestId('cover-letter-panel')).toBeInTheDocument();
++    expect(screen.getByText(/In Progress \/ Verification Pending/i)).toBeInTheDocument();
++  });
++
++  test('renders Project Gallery with side-by-side GitHub showcase and handles empty category filter (Edge Cases 2 & 3)', () => {
++    render(
++      <MemoryRouter initialEntries={['/projects']}>
++        <AppRoutes />
++      </MemoryRouter>
++    );
++    expect(screen.getByText(/Preview Unavailable/i)).toBeInTheDocument();
++    fireEvent.click(screen.getByRole('button', { name: 'Full-Stack' }));
++    expect(screen.getByText(/No projects found in this category/i)).toBeInTheDocument();
++    fireEvent.click(screen.getByRole('button', { name: /Reset Filter/i }));
++    expect(screen.getByText(/React Vite Multi-Page Portfolio/i)).toBeInTheDocument();
++  });
++
++  test('validates Contact form inputs and displays inline alerts on invalid submission (Edge Case 4)', () => {
++    render(
++      <MemoryRouter initialEntries={['/contact']}>
++        <AppRoutes />
++      </MemoryRouter>
++    );
++    fireEvent.click(screen.getByRole('button', { name: /Send Message/i }));
++    expect(screen.getAllByRole('alert')).toHaveLength(3);
++
++    fireEvent.change(screen.getByLabelText(/Name/i), { target: { value: 'Hiring Manager' } });
++    fireEvent.change(screen.getByLabelText(/Email/i), { target: { value: 'manager@tech.io' } });
++    fireEvent.change(screen.getByLabelText(/Message/i), { target: { value: 'Great portfolio!' } });
++    fireEvent.click(screen.getByRole('button', { name: /Send Message/i }));
++    expect(screen.getByText(/Thank you for reaching out!/i)).toBeInTheDocument();
++  });
++
++  test('renders 404 NotFound fallback route on unmatched URL path (Edge Case 1)', () => {
++    render(
++      <MemoryRouter initialEntries={['/broken-url-path']}>
++        <AppRoutes />
++      </MemoryRouter>
++    );
++    expect(screen.getByRole('heading', { name: /404 - Page Not Found/i })).toBeInTheDocument();
++    expect(screen.getByRole('link', { name: /Return Home/i })).toHaveAttribute('href', '/');
++  });
++});
