@@ -6,11 +6,11 @@
 
 ## Phase 1: Environment & Scaffolding
 
-- [ ] Run terminal command: `git init` and create `.gitignore` (`node_modules/`, `dist/`, `.env`, `.env.*`, `coverage/`) per Artifact 2 (`02-walkthrough.md`).
-- [ ] Scaffold the React + Vite baseline template (`npm create vite@latest temp-vite -- --template react`) and merge files into the project root while preserving `./artifacts/`.
-- [ ] Install runtime router dependency: `npm install react-router-dom --no-audit`.
-- [ ] Install Jest & React Testing Library TDD suite: `npm install --save-dev jest jest-environment-jsdom @testing-library/react @testing-library/jest-dom @testing-library/user-event @babel/core @babel/preset-env @babel/preset-react babel-jest identity-obj-proxy --no-audit`.
-- [ ] Scaffold core directory tree (`src/components`, `src/pages`, `src/data`, `src/utils`, `__tests__`) and create configuration files (`babel.config.cjs`, `jest.config.cjs`, `jest.setup.js`) based on Artifact 4 (`04-architectural-diagram.md`).
+- [x] Run terminal command: `git init` and create `.gitignore` (`node_modules/`, `dist/`, `.env`, `.env.*`, `coverage/`) per Artifact 2 (`02-walkthrough.md`).
+- [x] Scaffold the React + Vite baseline template (`npm create vite@latest temp-vite -- --template react`) and merge files into the project root while preserving `./artifacts/`.
+- [x] Install runtime router dependency: `npm install react-router-dom --no-audit`.
+- [x] Install Jest & React Testing Library TDD suite: `npm install --save-dev jest jest-environment-jsdom @testing-library/react @testing-library/jest-dom @testing-library/user-event @babel/core @babel/preset-env @babel/preset-react babel-jest identity-obj-proxy --no-audit`.
+- [x] Scaffold core directory tree (`src/components`, `src/pages`, `src/data`, `src/utils`, `__tests__`) and create configuration files (`babel.config.cjs`, `jest.config.cjs`, `jest.setup.js`) based on Artifact 4 (`04-architectural-diagram.md`).
 
 ## Phase 2: Logic & State (Artifact 5 Alignment)
 
