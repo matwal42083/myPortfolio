@@ -14,7 +14,7 @@
   - `.env.*`
   - `.DS_Store`
   - `coverage/`
-- **Remote Origin:** `https://github.com/<YOUR_GITHUB_USERNAME>/myPortfolio.git`
+- **Remote Origin:** `https://github.com/matwal42083/myPortfolio.git`
 
 ## 2. Dependencies & Packages
 
@@ -36,8 +36,8 @@ git init
 git add .
 git commit -m "chore: initial project scaffolding"
 git branch -M main
-# git remote add origin <YOUR_GITHUB_URL>
-# git push -u origin main
+git remote add origin https://github.com/matwal42083/myPortfolio.git
+git push -u origin main
 ```
 
 ### 2. Initialize project & install testing dependencies
