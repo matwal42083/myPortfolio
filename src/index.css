@@ -18,6 +18,7 @@
   font: 18px/145% var(--sans);
   letter-spacing: 0.18px;
   color-scheme: light dark;
+  /* Step 1 (Dark/Light Mode Toggle): Map <meta name="color-scheme"> or [data-theme] to :root color-scheme so manual Light/Dark toggling overrides the OS default */
   color: var(--text);
   background: var(--bg);
   font-synthesis: none;

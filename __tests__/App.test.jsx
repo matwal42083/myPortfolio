@@ -2,6 +2,7 @@ import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 import { AppRoutes } from '../src/App';
+import { profileData, projectsData } from '../src/data/portfolioData';
 
 describe('Multi-Page React Router Portfolio Integration (SDD-REQ-05 to SDD-REQ-09)', () => {
   test('renders Home route with hero introduction and quick CTAs', () => {
@@ -10,7 +11,7 @@ describe('Multi-Page React Router Portfolio Integration (SDD-REQ-05 to SDD-REQ-0
         <AppRoutes />
       </MemoryRouter>
     );
-    expect(screen.getByRole('heading', { name: /Alex Morgan/i })).toBeInTheDocument();
+    expect(screen.getByRole('heading', { name: profileData.name })).toBeInTheDocument();
     expect(screen.getByRole('link', { name: /Explore Project Gallery/i })).toBeInTheDocument();
   });
 
@@ -36,7 +37,7 @@ describe('Multi-Page React Router Portfolio Integration (SDD-REQ-05 to SDD-REQ-0
     fireEvent.click(screen.getByRole('button', { name: 'Full-Stack' }));
     expect(screen.getByText(/No projects found in this category/i)).toBeInTheDocument();
     fireEvent.click(screen.getByRole('button', { name: /Reset Filter/i }));
-    expect(screen.getByText(/React Vite Multi-Page Portfolio/i)).toBeInTheDocument();
+    expect(screen.getByText(projectsData[0].title)).toBeInTheDocument();
   });
 
   test('validates Contact form inputs and displays inline alerts on invalid submission (Edge Case 4)', () => {

@@ -4,40 +4,170 @@
 // ============================================================================
 
 export const profileData = {
-  // Step 1: Set the property name to 'Alex Morgan' (or a string containing 'Alex Morgan' so App.test.jsx matches the hero heading)
-  // Step 2: Set the property role to 'Full-Stack & React Frontend Developer'
-  // Step 3: Set the property tagline to a string describing your React, Vite, and Spec-Driven Development focus
-  // Step 4: Set the property bio to a string describing your specialization in modular, test-driven React applications
-  // Step 5: Set the property resumePdfUrl to '/resume-alex-morgan.pdf'
-  // Step 6: Set the property resumeSummary to an object containing:
-    // - experience: an array of objects, each with id ('exp-1'), title, organization, period, and highlights (an array of strings)
-    // - coreCompetencies: an array of skill summary strings
-  // Step 7: Set the property coverLetter to an object containing:
-    // - greeting: 'Dear Hiring Manager & Technical Recruiting Team,'
-    // - bodyParagraphs: an array of two paragraph strings pitching your engineering portfolio
-    // - signOff: 'Sincerely, Alex Morgan'
-  // Step 8: Set the property socialLinks to an object containing github, linkedin, and email URL strings
+  name: 'Matthew Walton',
+  role: 'Fullstack & Frontend Developer with AI',
+  techStack: ['React', 'HTML', 'CSS', 'JavaScript'],
+  tagline:
+    'Building modular, test-driven web applications with React, Vite, and the Antivibe (SDD/TDD/LDD) AI engineering workflow.',
+  bio: "I'm a Fullstack Developer with AI Development using the Antivibe coding technique that I've developed myself.",
+  resumePdfUrl: '/resume-matthew-walton.pdf',
+  resumeSummary: {
+    skills: {
+      hardSkills: [
+        'HTML',
+        'CSS',
+        'JavaScript',
+        'React',
+        'WSL2',
+        'AI Agentic',
+        'VS Code',
+        'Antigravity 2.0',
+        'Antigravity CLI',
+      ],
+      softSkills: [
+        'MS Windows',
+        'Google Workspace',
+        'Linux Distro Ubuntu',
+        'MS & Google Docs/Word',
+        'MS Excel',
+        'Google Sheets',
+        'Apps Script',
+      ],
+    },
+    experience: [
+      {
+        id: 'exp-1',
+        title: 'Independent AI & Full-Stack Developer (Career Launch Portfolio)',
+        organization: 'Self-Directed Engineering & Antivibe Framework',
+        period: '2025 - Present',
+        highlights: [
+          'Designed and built the Antivibe 50/50 AI/BI engineering workflow combining Spec-Driven, Test-Driven, and Learn-Driven Development.',
+          'Engineered modular multi-page React + Vite web applications verified with automated Jest and React Testing Library suites.',
+          'Developed custom WSL2 Linux automation hooks, CLI workflows, and side-by-side GitHub showcase interfaces.',
+        ],
+      },
+    ],
+    coreCompetencies: [
+      'React & React Router Multi-Page Architecture',
+      'Jest & React Testing Library Red-to-Green Workflows',
+      'HTML5, Modern CSS3, and ES6+ JavaScript',
+      'WSL2 Ubuntu, Git/GitHub Flow, and AI-Assisted Engineering',
+    ],
+  },
+  coverLetter: {
+    greeting: 'Dear Hiring Manager & Technical Recruiting Team,',
+    bodyParagraphs: [
+      'Thank you for visiting my developer portfolio. As an emerging Fullstack & Frontend Developer ready to launch my professional engineering career, I focus on building clean, testable, and maintainable web applications rather than relying on copy-paste shortcuts.',
+      'To accelerate my growth and code quality, I created my own Antivibe (SDD/TDD/LDD) methodology inside WSL2 Ubuntu and React + Vite. Every project showcased here pairs a live interactive view with its underlying GitHub repository so you can inspect my code, tests, and commit history firsthand.',
+    ],
+    signOff: 'Sincerely, Matthew Walton (Matwal)',
+  },
+  socialLinks: {
+    github: 'https://github.com/matwal42083',
+    linkedin: 'https://linkedin.com/in/matwal',
+    email: 'mailto:matwal42083@gmail.com',
+  },
 };
 
 export const skillsData = [
-  // Step 9: Add first category object: { category: 'Frontend Engineering', items: ['React 18', 'React Router v6', 'JavaScript (ES6+)', 'HTML5', 'CSS3 / Responsive Design'] }
-  // Step 10: Add second category object: { category: 'Testing & Quality Assurance', items: ['Jest', 'React Testing Library', 'TDD Red-Green-Refactor', 'Edge-Case Validation'] }
-  // Step 11: Add third category object: { category: 'Build Tools & Workflow', items: ['Vite', 'Git & GitHub', 'WSL 2 Ubuntu', 'Antivibe SDD/TDD/LDD'] }
+  {
+    category: 'Hard Skills & Frontend Engineering',
+    items: [
+      'HTML',
+      'CSS',
+      'JavaScript (ES6+)',
+      'React',
+      'React Router',
+      'Vite',
+    ],
+  },
+  {
+    category: 'AI & Testing Workflow',
+    items: [
+      'AI Agentic Development',
+      'Antigravity 2.0',
+      'Antigravity CLI',
+      'Antivibe SDD/TDD/LDD',
+      'Jest & React Testing Library',
+    ],
+  },
+  {
+    category: 'Systems, Platforms & Productivity',
+    items: [
+      'WSL2 & Linux Ubuntu',
+      'VS Code',
+      'Git & GitHub Flow',
+      'MS Windows',
+      'Google Sheets & Apps Script',
+      'MS Word & Excel',
+    ],
+  },
 ];
 
 export const credentialsData = {
-  // Step 12: Set certifications to an array of three certification objects:
-    // - Object 1: id ('cert-1'), title ('Front-End Development Libraries Certification'), issuer ('freeCodeCamp'), date ('2025'), skills (array of strings), and verifyUrl (a non-empty HTTPS URL string so certifications[0] is verified)
-    // - Object 2: id ('cert-2'), title ('JavaScript Algorithms and Data Structures'), issuer ('freeCodeCamp'), date ('2025'), skills (array of strings), and verifyUrl (a non-empty HTTPS URL string)
-    // - Object 3 (Edge Case 3): id ('cert-3'), title ('Full-Stack Testing & Architecture Specialization'), issuer ('Antivibe Engineering Academy'), date ('2026'), skills (array of strings), and verifyUrl set to null so 'In Progress / Verification Pending' is tested
-  // Step 13: Set education to an array containing at least one object with id ('edu-1'), institution, program, period, and focus strings
+  certifications: [
+    {
+      id: 'cert-1',
+      title: 'Front-End Web Development & JavaScript Foundations',
+      issuer: 'Self-Directed Curriculum & Online Labs',
+      date: '2025',
+      skills: ['HTML', 'CSS', 'JavaScript', 'React'],
+      verifyUrl: 'https://github.com/matwal42083',
+    },
+    {
+      id: 'cert-2',
+      title: 'AI Agentic Workflow & Antivibe Engineering Architecture',
+      issuer: 'Independent R&D Project',
+      date: '2026',
+      skills: ['WSL2', 'Antigravity 2.0', 'Antigravity CLI', 'Bash Hooks'],
+      verifyUrl: 'https://github.com/matwal42083/myPortfolio',
+    },
+    {
+      id: 'cert-3',
+      title: 'Full-Stack React & Automated TDD Specialization',
+      issuer: 'In Progress — Career Launch Track',
+      date: '2026',
+      skills: ['React', 'Jest', 'React Testing Library', 'Vite'],
+      verifyUrl: null,
+    },
+  ],
+  education: [
+    {
+      id: 'edu-1',
+      institution: 'Independent Software Engineering & AI Development Track',
+      program: 'Frontend & Full-Stack Web Development',
+      period: '2025 - Present',
+      focus:
+        'Hands-on mastery of HTML, CSS, JavaScript, React, Linux WSL2 Ubuntu, Git/GitHub worktrees, and Test-Driven Development.',
+    },
+  ],
 };
 
 export const projectsData = [
-  // Step 14: Add first project object:
-    // - id: 'proj-1', title: 'React Vite Multi-Page Portfolio', category: 'Frontend', summary: string, techStack: array of strings, liveUrl: 'https://example-portfolio-demo.vercel.app', repoUrl: 'https://github.com/example-developer/myPortfolio', repoBranch: 'main', primaryLanguage: 'JavaScript (JSX)'
-  // Step 15: Add second project object (Edge Case 2 - missing liveUrl; leave 'Full-Stack' category with 0 items for Edge Case 3):
-    // - id: 'proj-2', title: 'Algorithmic Task Matrix Sandbox', category: 'Practice', summary: string, techStack: array of strings, liveUrl: null (triggers 'Preview Unavailable' badge), repoUrl: 'https://github.com/example-developer/task-matrix-sandbox', repoBranch: 'main', primaryLanguage: 'JavaScript'
+  {
+    id: 'proj-1',
+    title: 'Matwal React + Vite Developer Portfolio',
+    category: 'Frontend',
+    summary:
+      'Modular multi-page portfolio built with React, Vite, and React Router featuring an integrated Resume/Cover Letter hub and side-by-side GitHub repository showcase.',
+    techStack: ['React', 'Vite', 'React Router', 'Jest', 'CSS'],
+    liveUrl: 'https://github.com/matwal42083/myPortfolio',
+    repoUrl: 'https://github.com/matwal42083/myPortfolio',
+    repoBranch: 'main',
+    primaryLanguage: 'JavaScript (JSX)',
+  },
+  {
+    id: 'proj-2',
+    title: 'Antivibe TDD & JavaScript Practice Sandbox',
+    category: 'Practice',
+    summary:
+      'Hands-on practice builds demonstrating pure JavaScript state logic, array filtering, form validation, and automated unit testing.',
+    techStack: ['JavaScript', 'HTML', 'CSS', 'Jest', 'WSL2'],
+    liveUrl: null,
+    repoUrl: 'https://github.com/matwal42083',
+    repoBranch: 'main',
+    primaryLanguage: 'JavaScript',
+  },
 ];
 
-// NEXT STEP: When you have implemented src/data/portfolioData.js, open src/utils/portfolioHelpers.js
+// NEXT STEP: Open src/pages/Home.jsx (or src/utils/portfolioHelpers.js) to continue building!
