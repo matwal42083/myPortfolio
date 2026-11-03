@@ -4,24 +4,46 @@
 // ============================================================================
 
 export function filterProjectsByCategory(projects, selectedCategory) {
-  // Step 1: [SDD-REQ-01] Guard Clause: Check if Array.isArray(projects) is false; if so, return an empty array []
-  // Step 2: Check if selectedCategory is falsy or if selectedCategory is strictly equal to 'All'; if so, return projects unchanged
-  // Step 3: Return the result of calling projects.filter(), keeping each project where project.category is strictly equal to selectedCategory
+  //[SDD-REQ-01] Guard Clause: Check if Array.isArray(projects) is false; if so, return an empty array []
+   if(!Array.isArray(projects)) {
+    return [];
+   };
+  //Check if selectedCategory is falsy or if selectedCategory is strictly equal to 'All'; if so, return projects unchanged
+   if(selectedCategory = false) {
+
+   } else if (selectedCategory === 'All') {
+     return projects;
+   }
+//Return the result of calling projects.filter(), keeping each project where project.category is strictly equal to selectedCategory
+   projects.filter(project => project.category === selectedCategory);
+
 }
 
 export function normalizeProjectLinks(project = {}) {
-  // Step 4: [SDD-REQ-02] Initialize a constant named cleanLiveUrl: if typeof project.liveUrl is strictly equal to 'string', call project.liveUrl.trim(), otherwise set to ''
-  // Step 5: Initialize a constant named cleanRepoUrl: if typeof project.repoUrl is strictly equal to 'string', call project.repoUrl.trim(), otherwise set to ''
+  //[SDD-REQ-02] Initialize a constant named cleanLiveUrl: if typeof project.liveUrl is strictly equal to 'string', call project.liveUrl.trim(), otherwise set to ''
+  const cleanLiveUrl = typeof project.liveUrl === 'string' ?
+  project.liveUrl.trim() : '';
+ // Step 5: Initialize a constant named cleanRepoUrl: if typeof project.repoUrl is strictly equal to 'string', call project.repoUrl.trim(), otherwise set to ''
+ const cleanRepoUrl = typeof project.repoUrl === 'string' ?
+  project.repoUrl.trim() : '';
   // Step 6: Initialize a constant named hasLivePreview set equal to Boolean(cleanLiveUrl)
+  const hasLivePreview = Boolean(cleanLiveUrl);
   // Step 7: Initialize a constant named hasRepo set equal to Boolean(cleanRepoUrl)
+  const hasRepo = Boolean(cleanRepoUrl);
 
   return {
     // Step 8: Set hasLivePreview
+    hasLivePreview: hasLivePreview,
     // Step 9: Set liveHref to cleanLiveUrl when hasLivePreview is true, otherwise null
+    liveHref: hasLivePreview ? cleanLiveUrl : null,
     // Step 10: Set liveLabel to 'Launch Live Preview' when hasLivePreview is true, otherwise 'Preview Unavailable'
+    liveLabel: hasLivePreview ? 'Launch Live Preview' : 'Preview Unavailable',
     // Step 11: Set hasRepo
+     hasRepo: hasRepo,
     // Step 12: Set repoHref to cleanRepoUrl when hasRepo is true, otherwise null
+    repoHref: hasRepo ? cleanRepoUrl : null,
     // Step 13: Set repoLabel to 'View Source on GitHub' when hasRepo is true, otherwise 'Repo Pending'
+    repoLabel: hasRepo ? 'View Source on GitHub' : 'Repo Pending',
   };
 }
 

@@ -1,28 +1,27 @@
-import { useState } from "react";
-import heroImg from "./assets/hero.png";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "./assets/vite.svg";
-import "./App.css";
+import {BrowserRouter, Routes, Route} from 'react-router-dom';
+import Navbar from './components/Navbar';
+
+
 
 function App() {
-  const [count, setCount] = useState(0);
+
 
   return (
     <>
-      <section id="center">
-        <div className="hero">
-          <img src={heroImg} className="base" width="170" height="179" alt="" />
-          <img src={reactLogo} className="framework" alt="React logo" />
-          <img src={viteLogo} className="vite" alt="Vite logo" />
-        </div>
-        <button
-          type="button"
-          className="counter"
-          onClick={() => setCount((count) => count + 1)}
-        >
-          Count is {count}
-        </button>
-      </section>
+    <div className="app-shell">
+      <Navbar />
+      <main className="main-content">
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/credentials" element={<Credentials />} />
+          <Route path="/projects" element={<Projects />} />
+          <Route path="/contact" element={<Contact />} />
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </main>
+    </div>
+    
     </>
   );
 }
@@ -63,7 +62,24 @@ export default App;
 // Step 9: Below </main>, render <Footer />
 // );
 //}
-
+// <button
+//          type="button"
+//          className="counter"
+//          onClick={() => setCount((count) => count + 1)}
+//        >
+//          Count is {count}
+//        </button>
+//   <div className="hero">
+//          <img src={heroImg} className="base" width="179" height="179" alt="" />
+//          <img src={reactLogo} className="framework" alt="React logo" />
+//          <img src={viteLogo} className="vite" alt="Vite logo" />      </div>
+//   
+//   
+//   
+//   
+//   
+//   
+//   
 // Step 10: (FINAL CUTOVER STEP) When all tests pass in `npx jest --watchAll=false` and you are ready to replace the Vite welcome screen in the browser, update `export default function App()` above to return `<BrowserRouter><AppRoutes /></BrowserRouter>`
 
 // NEXT STEP: Run `npx jest --watchAll=false` to verify all 9 tests across both suites are GREEN!
