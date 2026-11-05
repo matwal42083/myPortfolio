@@ -3,35 +3,34 @@
 // [SDD-REQ-02 / SDD-REQ-08] Side-by-Side Live Preview & GitHub Repository Card
 // ============================================================================
 
-// import React from 'react';
-// import { normalizeProjectLinks } from '../utils/portfolioHelpers';
+// Step 1a: Import React from 'react'
+// Step 1b: Import { normalizeProjectLinks } from '../utils/portfolioHelpers'
 
-// export default function ProjectCard({ project }) {
-// Step 1: Initialize a constant named linkState set equal to calling normalizeProjectLinks(project)
+// Step 2: Declare and export default function ProjectCard destructuring property { project }
+// Step 3: Inside the function, initialize a const with linkState equal to calling normalizeProjectLinks(project)
 
-//return (
-// Step 2: Render an <article> element with className="project-card" and data-testid={`project-card-${project.id}`}
-// Step 3: Render a <div> with className="project-card-header"
-// Step 4: Render a <span> with className="project-category-badge" displaying project.category
-// Step 5: Render an <h3> displaying project.title
-// Step 6: Render a <p> displaying project.summary
-// Step 7: Render a <ul> with className="tech-stack-list" and aria-label={`${project.title} Tech Stack`}, mapping over project.techStack to render <li key={tech} className="tech-tag">{tech}</li>
+// Return these following JSX elements:
+// Step 4: Render an <article> element with className="project-card" and data-testid template string `project-card-${project.id}`
+// Step 5: Inside <article>, render a <div> container with className="project-card-header"
+// Step 6: Render a <span> badge with className="project-category-badge" displaying variable project.category
+// Step 7: Render an <h3> heading displaying variable project.title
+// Step 8: Render a <p> description displaying variable project.summary
+// Step 9: Render a <ul> list with className="tech-stack-list" and aria-label template string `${project.title} Tech Stack`
+// Step 10: Inside <ul>, map over project.techStack: for each item tech, render an <li> with key={tech} and className="tech-tag" displaying {tech}
 
-// Step 8: Render a <div> with className="project-showcase-split" for the side-by-side layout
-// Step 9: Render the first <section> with className="showcase-pane preview-pane" and aria-label="Live Application Preview"
-// Step 10: Render an <h4> displaying "Live App Preview"
-// Step 11: Use a ternary evaluating linkState.hasLivePreview:
-// - If true: render an <a> with href={linkState.liveHref}, target="_blank", rel="noopener noreferrer", className="btn-preview", displaying linkState.liveLabel
-// - If false (Edge Case 2): render a <span className="fallback-badge" role="status"> displaying linkState.liveLabel ('Preview Unavailable')
+// Step 11: Render a <div> split-container with className="project-showcase-split"
+// Step 12: Inside split-container, render a <section> with className="showcase-pane preview-pane" and aria-label="Live Application Preview"
+// Step 13: Inside preview-pane, render an <h4> heading displaying text 'Live App Preview'
+// Step 14: Use a ternary evaluating condition linkState.hasLivePreview:
+//   - If true: render an <a> anchor with href={linkState.liveHref}, target="_blank", rel="noopener noreferrer", className="btn-preview", displaying text {linkState.liveLabel}
+//   - If false: render a <span className="fallback-badge" role="status"> displaying text {linkState.liveLabel}
 
-// Step 12: Render the second <section> with className="showcase-pane repo-pane" and aria-label="GitHub Repository Showcase"
-// Step 13: Render an <h4> displaying "GitHub Repository"
-// Step 14: Render a <p className="repo-meta"> displaying project.repoBranch and project.primaryLanguage
-// Step 15: Use a ternary evaluating linkState.hasRepo:
-// - If true: render an <a> with href={linkState.repoHref}, target="_blank", rel="noopener noreferrer", className="btn-repo", displaying linkState.repoLabel
-// - If false (Edge Case 2): render a <span className="fallback-badge" role="status"> displaying linkState.repoLabel ('Repo Pending')
-// );
-//}
+// Step 15: Render a second <section> with className="showcase-pane repo-pane" and aria-label="GitHub Repository Showcase"
+// Step 16: Inside repo-pane, render an <h4> heading displaying text 'GitHub Repository'
+// Step 17: Render a <p className="repo-meta"> displaying template string `${project.repoBranch} • ${project.primaryLanguage}`
+// Step 18: Use a ternary evaluating condition linkState.hasRepo:
+//   - If true: render an <a> anchor with href={linkState.repoHref}, target="_blank", rel="noopener noreferrer", className="btn-repo", displaying text {linkState.repoLabel}
+//   - If false: render a <span className="fallback-badge" role="status"> displaying text {linkState.repoLabel}
 
-// LIVE HMR CHECK: Import ProjectCard and projectsData in src/App.jsx and render <ProjectCard project={projectsData[0]} /> inside the welcome screen to verify the side-by-side card layout!
-// NEXT STEP: Once ProjectCard renders cleanly on screen, open src/pages/Home.jsx
+// LIVE HMR CHECK: Import ProjectCard and projectsData in src/App.jsx to visually preview your side-by-side cards!
+// NEXT STEP: Once ProjectCard is implemented, open src/pages/Home.jsx

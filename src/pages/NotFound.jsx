@@ -3,17 +3,16 @@
 // [SDD-REQ-09] 404 Catch-All Route Fallback (Edge Case 1)
 // ============================================================================
 
-// import React from 'react';
-// import { Link } from 'react-router-dom';
+// Step 1a: Import React from 'react'
+// Step 1b: Import { Link } from 'react-router-dom'
 
-//export default function NotFound() {
-//return (
-// Step 1: Render a <section> element with className="page-section not-found-page"
-// Step 2: Render an <h1> displaying "404 - Page Not Found" (asserted by App.test.jsx)
-// Step 3: Render a <p> displaying "The portfolio route you requested does not exist."
-// Step 4: Render a <Link to="/" className="btn-return-home"> displaying "Return Home" (asserted by App.test.jsx)
-//);
-//}
+// Step 2: Declare and export default function NotFound()
 
-// LIVE HMR CHECK: Add <Route path="*" element={<NotFound />} /> in src/App.jsx and visit an unknown path to verify the 404 fallback and "Return Home" link live!
+// Return these following JSX elements:
+// Step 3: Render a <section> element with className="page-section not-found-page"
+// Step 4: Inside <section>, render an <h1> heading displaying text '404 - Page Not Found'
+// Step 5: Render a <p> description displaying text 'The portfolio route you requested does not exist.'
+// Step 6: Render a <Link to="/" className="btn-return-home"> component displaying text 'Return Home'
+
+// LIVE HMR CHECK: Visit an unknown URL path in the browser to verify the 404 fallback!
 // NEXT STEP: Finalize AppRoutes in src/App.jsx (File 12 of 12) and run `npx jest --watchAll=false`!

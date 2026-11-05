@@ -1,22 +1,32 @@
-// ============================================================================
-// FILE 7 OF 12: src/pages/About.jsx
-// [SDD-REQ-06] Developer Biography & Categorized Skills Matrix
-// ============================================================================
+import React from "react";
+import { profileData, skillsData } from "../data/portfolioData";
 
-// import React from 'react';
-// import { profileData, skillsData } from '../data/portfolioData';
-
-// export default function About() {
-//return (
-// Step 1: Render a <section> element with className="page-section about-page"
-// Step 2: Render an <h1> displaying "About & Technical Skills"
-// Step 3: Render a <p className="about-bio"> displaying profileData.bio
-// Step 4: Render a <div className="skills-grid">
-// Step 5: Map over skillsData; for each group object, render an <article key={group.category} className="skill-card">
-// Step 6: Inside <article>, render an <h2> displaying group.category
-// Step 7: Render a <ul> containing mapped <li key={skill}>{skill}</li> elements for each skill in group.items
-//);
-//}
-
-// LIVE HMR CHECK: Add <Route path="/about" element={<About />} /> in src/App.jsx and click "About & Skills" in the Navbar to verify About renders live!
-// NEXT STEP: Once About renders cleanly on screen, open src/pages/Credentials.jsx
+/**
+ * Developer biography and categorized skills matrix.
+ * Complies with [SDD-REQ-06] rendering profile bio and mapping over skillsData categories.
+ */
+export default function About() {
+  return (
+    <section className="page-section about-page">
+     <div>
+      <h1>About & Technical Skills</h1>
+      <p className="about-bio">{profileData.bio}</p>
+      </div>
+      <div>
+        <img src="./assets/images/CodecademyLogo.png"></img>
+      </div>
+      <div className="skills-grid">
+        {skillsData.map((group) => (
+          <article key={group.category} className="skill-card">
+            <h2 className="category-title">{group.category}</h2>
+            <ul className="skill-list">
+              {group.items.map((skill) => (
+                <li key={skill}>{skill}</li>
+              ))}
+            </ul>
+          </article>
+        ))}
+      </div>
+    </section>
+  );
+}

@@ -1,7 +1,8 @@
-// ============================================================================
-// FILE 1 OF 12: src/data/portfolioData.js
-// [SDD-REQ-05 / SDD-REQ-06 / SDD-REQ-07 / SDD-REQ-08] Static Portfolio Datasets
-// ============================================================================
+/**
+ * Static Portfolio Dataset
+ * Central source of truth for developer profile, competencies, credentials, and showcased projects.
+ * Complies with [SDD-REQ-05 / SDD-REQ-06 / SDD-REQ-07 / SDD-REQ-08].
+ */
 
 export const profileData = {
   name: 'Matthew Walton',
@@ -9,7 +10,7 @@ export const profileData = {
   techStack: ['React', 'HTML', 'CSS', 'JavaScript'],
   tagline:
     'Building modular, test-driven web applications with React, Vite, and the Antivibe (SDD/TDD/LDD) AI engineering workflow.',
-  bio: "I'm a Fullstack Developer with AI Development using the Antivibe coding technique that I've developed myself.",
+  bio: "Hello! I'm Matthew Walton a.k.a Matwal, this is more of a screen name for myself to keep it unique. I'm a FullStack Developer and have been coding for almost about 5 years now. I started out teaching myself and utilizing online platforms for coding curriculum from Mimo. Until it felt a bit juvenile of a platform for me. Then I found freeCodeCamp and Codecademy. I also attended a 9 month Fullstack coding bootcamp from FullStack Academy X Amazon Career Choice program.",
   resumePdfUrl: '/resume-matthew-walton.pdf',
   resumeSummary: {
     skills: {
@@ -169,5 +170,3 @@ export const projectsData = [
     primaryLanguage: 'JavaScript',
   },
 ];
-
-// NEXT STEP: Open src/pages/Home.jsx (or src/utils/portfolioHelpers.js) to continue building!

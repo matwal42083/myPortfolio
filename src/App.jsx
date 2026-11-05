@@ -1,85 +1,83 @@
-import {BrowserRouter, Routes, Route} from 'react-router-dom';
-import Navbar from './components/Navbar';
+import { Routes, Route } from "react-router-dom";
+import Navbar from "./components/Navbar";
+import Home from "./pages/Home";
+import About from "./pages/About";
+import Footer from "./components/Footer";
+import "./App.css";
 
-
-
-function App() {
-
-
+export function AppRoutes() {
   return (
-    <>
     <div className="app-shell">
+      {/* TOP: Main Header */}
       <Navbar />
-      <main className="main-content">
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/credentials" element={<Credentials />} />
-          <Route path="/projects" element={<Projects />} />
-          <Route path="/contact" element={<Contact />} />
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-      </main>
+
+      {/* TWO-COLUMN BODY */}
+      <div className="app-body">
+        {/* LEFT COLUMN: Sidebar Table of Contents */}
+        <aside className="sidebar-toc" aria-label="Table of Contents">
+          <h3>Quick Navigation</h3>
+          <nav>
+            <ul>
+              <li><a href="#hero">Overview</a></li>
+              <li><a href="#highlights">Key Highlights</a></li>
+              <li><a href="#skills">Skills Matrix</a></li>
+              <li><a href="#projects">Showcased Projects</a></li>
+            </ul>
+          </nav>
+        </aside>
+
+        {/* RIGHT COLUMN: Breadcrumbs + Main Content */}
+        <main className="content-pane">
+          <nav className="breadcrumbs" aria-label="Breadcrumbs">
+            <span className="breadcrumbs-link">Home</span>
+            <span className="separator">||</span>
+            <span className="current">Developer Portfolio</span>
+            <span className="breadcrumbs-link">About</span>
+            <span className="separator">||</span>
+            <span className="current">Developer Skills</span>
+          </nav>
+
+          {/* Dynamic views switch here */}
+          <div className="contentView">
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/about" element={<About />} />
+          </Routes>
+          </div>
+        </main>
+      </div>
+
+      <Footer />
     </div>
-    
-    </>
   );
 }
 
-export default App;
+export default AppRoutes;
+// Step 1: Import { BrowserRouter, Routes, Route } from 'react-router-dom'
+// Step 2: Import layout components: Navbar from './components/Navbar' and Footer from './components/Footer'
+// Step 3: Import page components:
+//   - Home from './pages/Home'
+//   - About from './pages/About'
+//   - Credentials from './pages/Credentials'
+//   - Projects from './pages/Projects'
+//   - Contact from './pages/Contact'
+//   - NotFound from './pages/NotFound'
 
-// ============================================================================
-// FILE 12 OF 12: src/App.jsx
-// [SDD-REQ-05 to SDD-REQ-09] AppRoutes & BrowserRouter Integration
-//
-// HOW TO INCREMENTALLY MOUNT COMPONENTS ON THE LIVE WELCOME SCREEN AS YOU BUILD:
-// 1. Keep the working Vite welcome screen in `function App()` as your live test harness.
-// 2. As you complete each component (`Navbar`, `Footer`, `ProjectCard`) and each page
-//    (`Home`, `About`, `Credentials`, `Projects`, `Contact`, `NotFound`), import and mount
-//    it inside `<BrowserRouter>` in `App.jsx` so you can visually verify it right away via
-//    Vite HMR while keeping a known-good working baseline!
-// 3. Once every component/page is verified live on screen, remove the temporary Vite
-//    welcome elements so `AppRoutes()` and `App()` match Steps 4-11 below.
-// ============================================================================
+// Step 4: Declare and export function AppRoutes()
 
-// Step 1: At the top of src/App.jsx, import { BrowserRouter, Routes, Route } from 'react-router-dom'
-// Step 2: Import your layout components: Navbar from './components/Navbar' and Footer from './components/Footer'
-// Step 3: Import your 6 page components: Home from './pages/Home', About from './pages/About', Credentials from './pages/Credentials', Projects from './pages/Projects', Contact from './pages/Contact', and NotFound from './pages/NotFound'
+// Return these following JSX elements:
+// Step 5: Render a <div className="app-shell">
+// Step 6: Inside the shell, render <Navbar />
+// Step 7: Render a <main className="main-content"> container wrapping <Routes>
+// Step 8: Inside <Routes>, declare 6 <Route> elements:
+//   - <Route path="/" element={<Home />} />
+//   - <Route path="/about" element={<About />} />
+//   - <Route path="/credentials" element={<Credentials />} />
+//   - <Route path="/projects" element={<Projects />} />
+//   - <Route path="/contact" element={<Contact />} />
+//   - <Route path="*" element={<NotFound />} />
+// Step 9: Render <Footer /> below </main>
 
-//export function AppRoutes() {
-//return (
-// Step 4: Render a <div className="app-shell">
-// Step 5: Render <Navbar />
-// Step 6: Render a <main className="main-content"> containing a <Routes> wrapper
-// Step 7: Inside <Routes>, declare the 5 core <Route> elements:
-// - <Route path="/" element={<Home />} />
-// - <Route path="/about" element={<About />} />
-// - <Route path="/credentials" element={<Credentials />} />
-// - <Route path="/projects" element={<Projects />} />
-// - <Route path="/contact" element={<Contact />} />
-// Step 8: Inside <Routes>, declare the catch-all 404 <Route> element:
-// - <Route path="*" element={<NotFound />} />
-// Step 9: Below </main>, render <Footer />
-// );
-//}
-// <button
-//          type="button"
-//          className="counter"
-//          onClick={() => setCount((count) => count + 1)}
-//        >
-//          Count is {count}
-//        </button>
-//   <div className="hero">
-//          <img src={heroImg} className="base" width="179" height="179" alt="" />
-//          <img src={reactLogo} className="framework" alt="React logo" />
-//          <img src={viteLogo} className="vite" alt="Vite logo" />      </div>
-//   
-//   
-//   
-//   
-//   
-//   
-//   
-// Step 10: (FINAL CUTOVER STEP) When all tests pass in `npx jest --watchAll=false` and you are ready to replace the Vite welcome screen in the browser, update `export default function App()` above to return `<BrowserRouter><AppRoutes /></BrowserRouter>`
+// Step 10: In export default function App(), return //<BrowserRouter><AppRoutes /></BrowserRouter>
 
 // NEXT STEP: Run `npx jest --watchAll=false` to verify all 9 tests across both suites are GREEN!

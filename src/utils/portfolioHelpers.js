@@ -1,77 +1,118 @@
-// ============================================================================
-// FILE 2 OF 12: src/utils/portfolioHelpers.js
-// [SDD-REQ-01 to SDD-REQ-04] Pure Domain Helper Functions
-// ============================================================================
+/**
+ * Pure domain helper functions for the portfolio application.
+ * Covers project category filtering, URL normalization, credential verification,
+ * and client-side contact form validation.
+ * Complies with specifications [SDD-REQ-01] through [SDD-REQ-04].
+ */
 
+/**
+ * Filters an array of projects by a specified category.
+ * Returns all projects if category is 'All' or falsy.
+ *
+ * @param {Array<Object>} projects - List of project objects.
+ * @param {string} selectedCategory - Category string to filter by.
+ * @returns {Array<Object>} Filtered list of projects.
+ */
 export function filterProjectsByCategory(projects, selectedCategory) {
-  //[SDD-REQ-01] Guard Clause: Check if Array.isArray(projects) is false; if so, return an empty array []
-   if(!Array.isArray(projects)) {
+  if (!Array.isArray(projects)) {
     return [];
-   };
-  //Check if selectedCategory is falsy or if selectedCategory is strictly equal to 'All'; if so, return projects unchanged
-   if(selectedCategory = false) {
+  }
 
-   } else if (selectedCategory === 'All') {
-     return projects;
-   }
-//Return the result of calling projects.filter(), keeping each project where project.category is strictly equal to selectedCategory
-   projects.filter(project => project.category === selectedCategory);
+  if (!selectedCategory || selectedCategory === 'All') {
+    return projects;
+  }
 
+  return projects.filter((project) => project.category === selectedCategory);
 }
 
+/**
+ * Normalizes live preview and repository URLs for project showcase cards.
+ * Computes availability flags and UI labels.
+ *
+ * @param {Object} project - Project data object.
+ * @returns {Object} Normalized link state object.
+ */
 export function normalizeProjectLinks(project = {}) {
-  //[SDD-REQ-02] Initialize a constant named cleanLiveUrl: if typeof project.liveUrl is strictly equal to 'string', call project.liveUrl.trim(), otherwise set to ''
-  const cleanLiveUrl = typeof project.liveUrl === 'string' ?
-  project.liveUrl.trim() : '';
- // Step 5: Initialize a constant named cleanRepoUrl: if typeof project.repoUrl is strictly equal to 'string', call project.repoUrl.trim(), otherwise set to ''
- const cleanRepoUrl = typeof project.repoUrl === 'string' ?
-  project.repoUrl.trim() : '';
-  // Step 6: Initialize a constant named hasLivePreview set equal to Boolean(cleanLiveUrl)
+  const cleanLiveUrl =
+    typeof project.liveUrl === 'string' ? project.liveUrl.trim() : '';
+  const cleanRepoUrl =
+    typeof project.repoUrl === 'string' ? project.repoUrl.trim() : '';
+
   const hasLivePreview = Boolean(cleanLiveUrl);
-  // Step 7: Initialize a constant named hasRepo set equal to Boolean(cleanRepoUrl)
   const hasRepo = Boolean(cleanRepoUrl);
 
   return {
-    // Step 8: Set hasLivePreview
-    hasLivePreview: hasLivePreview,
-    // Step 9: Set liveHref to cleanLiveUrl when hasLivePreview is true, otherwise null
+    hasLivePreview,
     liveHref: hasLivePreview ? cleanLiveUrl : null,
-    // Step 10: Set liveLabel to 'Launch Live Preview' when hasLivePreview is true, otherwise 'Preview Unavailable'
     liveLabel: hasLivePreview ? 'Launch Live Preview' : 'Preview Unavailable',
-    // Step 11: Set hasRepo
-     hasRepo: hasRepo,
-    // Step 12: Set repoHref to cleanRepoUrl when hasRepo is true, otherwise null
+    hasRepo,
     repoHref: hasRepo ? cleanRepoUrl : null,
-    // Step 13: Set repoLabel to 'View Source on GitHub' when hasRepo is true, otherwise 'Repo Pending'
     repoLabel: hasRepo ? 'View Source on GitHub' : 'Repo Pending',
   };
 }
 
+/**
+ * Evaluates certification verification and official resume PDF status.
+ * Provides fallback UI labels for unverified credentials or pending PDFs.
+ *
+ * @param {Object} certification - Certification credential object.
+ * @param {string|null} resumePdfUrl - Path or URL to official resume PDF.
+ * @returns {Object} Normalized credential status object.
+ */
 export function normalizeCredentialStatus(certification = {}, resumePdfUrl = null) {
-  // Step 14: [SDD-REQ-03] Initialize cleanVerifyUrl: if typeof certification.verifyUrl is strictly equal to 'string', call certification.verifyUrl.trim(), otherwise set to ''
-  // Step 15: Initialize cleanPdfUrl: if typeof resumePdfUrl is strictly equal to 'string', call resumePdfUrl.trim(), otherwise set to ''
-  // Step 16: Initialize isVerified set equal to Boolean(cleanVerifyUrl) and hasResumePdf set equal to Boolean(cleanPdfUrl)
+  const cleanVerifyUrl =
+    typeof certification.verifyUrl === 'string'
+      ? certification.verifyUrl.trim()
+      : '';
+  const cleanPdfUrl =
+    typeof resumePdfUrl === 'string' ? resumePdfUrl.trim() : '';
+
+  const isVerified = Boolean(cleanVerifyUrl);
+  const hasResumePdf = Boolean(cleanPdfUrl);
 
   return {
-    // Step 17: Set isVerified
-    // Step 18: Set verifyHref to cleanVerifyUrl when isVerified is true, otherwise null
-    // Step 19: Set badgeText to 'Verified Credential' when isVerified is true, otherwise 'In Progress / Verification Pending'
-    // Step 20: Set hasResumePdf
-    // Step 21: Set resumeFallbackNotice to 'Download Official Resume (PDF)' when hasResumePdf is true, otherwise 'PDF Updating — View Web Resume'
+    isVerified,
+    verifyHref: isVerified ? cleanVerifyUrl : null,
+    badgeText: isVerified
+      ? 'Verified Credential'
+      : 'In Progress / Verification Pending',
+    hasResumePdf,
+    resumeFallbackNotice: hasResumePdf
+      ? 'Download Official Resume (PDF)'
+      : 'PDF Updating — View Web Resume',
   };
 }
 
+/**
+ * Synchronously validates contact form input values.
+ *
+ * @param {Object} formValues - Form values object containing name, email, and message.
+ * @returns {{ isValid: boolean, errors: Object }} Validation result and error map.
+ */
 export function validateContactForm(formValues = {}) {
-  // Step 22: [SDD-REQ-04] Initialize a constant named errors set equal to {}
-  // Step 23: Initialize trimmed strings for name, email, and message (defaulting to '' if not a string)
-  // Step 24: If name is empty, set errors.name to 'Name is required.'
-  // Step 25: Initialize emailRegex for standard email validation; if email is empty, set errors.email to 'Email is required.'; else if emailRegex.test(email) is false, set errors.email to 'Please enter a valid email address.'
-  // Step 26: If message is empty, set errors.message to 'Message cannot be empty.'
+  const errors = {};
+
+  const name = typeof formValues.name === 'string' ? formValues.name.trim() : '';
+  const email = typeof formValues.email === 'string' ? formValues.email.trim() : '';
+  const message = typeof formValues.message === 'string' ? formValues.message.trim() : '';
+
+  if (!name) {
+    errors.name = 'Name is required.';
+  }
+
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!email) {
+    errors.email = 'Email is required.';
+  } else if (!emailRegex.test(email)) {
+    errors.email = 'Please enter a valid email address.';
+  }
+
+  if (!message) {
+    errors.message = 'Message cannot be empty.';
+  }
 
   return {
-    // Step 27: Set isValid to whether Object.keys(errors).length is strictly equal to 0
-    // Step 28: Set errors
+    isValid: Object.keys(errors).length === 0,
+    errors,
   };
 }
-
-// NEXT STEP: Run `npx jest __tests__/portfolioHelpers.test.js --watchAll=false` to verify GREEN, then open src/components/Navbar.jsx
