@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
+import PortfolioLogo from "../assets/matwalPic.jpg";
 
 /**
  * Primary navigation header with route links and dynamic dark/light theme toggle.
@@ -30,7 +31,14 @@ export default function Navbar() {
   return (
     <header className="site-header">
       <nav aria-label="Primary Navigation" className="navbar">
-        <span className="brand-title">Matthew Walton (Matwal) | Portfolio</span>
+        <div className="navbar-brand">
+          <img
+            src={PortfolioLogo}
+            alt="Matthew Walton profile"
+            className="navbarPic"
+          />
+          <span className="brand-title">Matthew Walton (Matwal) | Portfolio</span>
+        </div>
         <ul className="nav-list">
           {navItems.map((item) => (
             <li key={item.to}>

@@ -10,7 +10,9 @@ export const profileData = {
   techStack: ['React', 'HTML', 'CSS', 'JavaScript'],
   tagline:
     'Building modular, test-driven web applications with React, Vite, and the Antivibe (SDD/TDD/LDD) AI engineering workflow.',
-  bio: "Hello! I'm Matthew Walton a.k.a Matwal, this is more of a screen name for myself to keep it unique. I'm a FullStack Developer and have been coding for almost about 5 years now. I started out teaching myself and utilizing online platforms for coding curriculum from Mimo. Until it felt a bit juvenile of a platform for me. Then I found freeCodeCamp and Codecademy. I also attended a 9 month Fullstack coding bootcamp from FullStack Academy X Amazon Career Choice program.",
+  bio: "Hello! I'm Matthew Walton, a web developer who has been working with computers since I was a kid. You will often see me using the online identity Matwal. When I decided to pursue web development, I took the initiative to learn HTML and CSS on my own time using platforms like SoloLearn and Mimo. I also attempted to learn JavaScript through these apps, but I quickly realized I needed a much more structured educational environment to truly advance.",
+  bio_2: "To build a professional skill set, I completed a rigorous nine-month Fullstack Academy bootcamp in 2023 through the Amazon Career Choice program. That experience was a massive game-changer for my overall technical abilities. The bootcamp gave me a rock-solid foundation in navigating the command line interface and taught me exactly how to utilize local Git and remote GitHub for real-world version control and professional collaboration. While Fullstack Academy helped me significantly advance my understanding of JavaScript, the language—along with React—actually took a bit more time to fully digest. It was only after graduation, as I continued relentlessly refining my skills through freeCodeCamp and Codecademy, that both JavaScript and React truly clicked for me.",
+  bio_3: "Right now, my primary focus is on frontend development. I want to build a strong foundation as a frontend developer before eventually working my way into the backend to become full-stack. I refuse to adopt a fake-it-till-you-make-it mentality. The Systems, Platforms, and Productivity card reflects the modern environments I rely on today. My current development ecosystem revolves around VS Code, WSL2, and Linux Ubuntu, and I streamline daily operations by leveraging Google Sheets, Apps Script, Microsoft Word, and Excel.",
   resumePdfUrl: '/resume-matthew-walton.pdf',
   resumeSummary: {
     skills: {
@@ -33,6 +35,10 @@ export const profileData = {
         'MS Excel',
         'Google Sheets',
         'Apps Script',
+        'Gemini',
+        'ChatGPT',
+        'Gemini Notebook',
+        'Claude'
       ],
     },
     experience: [
@@ -80,6 +86,7 @@ export const skillsData = [
       'React',
       'React Router',
       'Vite',
+      'Frontend'
     ],
   },
   {
@@ -90,6 +97,11 @@ export const skillsData = [
       'Antigravity CLI',
       'Antivibe SDD/TDD/LDD',
       'Jest & React Testing Library',
+      'GitHub Copilot',
+      'Gemini',
+      'Codex & ChatGPT',
+      'Gemini Notebook',
+      'Claude' 
     ],
   },
   {
@@ -109,26 +121,26 @@ export const credentialsData = {
   certifications: [
     {
       id: 'cert-1',
-      title: 'Front-End Web Development & JavaScript Foundations',
-      issuer: 'Self-Directed Curriculum & Online Labs',
-      date: '2025',
-      skills: ['HTML', 'CSS', 'JavaScript', 'React'],
-      verifyUrl: 'https://github.com/matwal42083',
+      title: 'Responsive Web Design & JavaScript Foundations',
+      issuer: 'freeCodeCamp & Codecademy',
+      date: '2024 - 2025',
+      skills: ['HTML5', 'CSS3', 'Responsive Design', 'Flexbox', 'CSS Grid'],
+      verifyUrl: 'https://www.freecodecamp.org/certification/fcc-responsive-web-design',
     },
     {
       id: 'cert-2',
-      title: 'AI Agentic Workflow & Antivibe Engineering Architecture',
-      issuer: 'Independent R&D Project',
-      date: '2026',
-      skills: ['WSL2', 'Antigravity 2.0', 'Antigravity CLI', 'Bash Hooks'],
-      verifyUrl: 'https://github.com/matwal42083/myPortfolio',
+      title: 'JavaScript Algorithms, Data Structures & Intermediate JS',
+      issuer: 'freeCodeCamp & Technical Labs',
+      date: '2024 - 2025',
+      skills: ['JavaScript (ES6+)', 'Algorithms', 'Data Structures', 'OOP', 'Functional Programming'],
+      verifyUrl: 'https://www.freecodecamp.org/certification/fcc-javascript-algorithms-data-structures',
     },
     {
       id: 'cert-3',
-      title: 'Full-Stack React & Automated TDD Specialization',
-      issuer: 'In Progress — Career Launch Track',
-      date: '2026',
-      skills: ['React', 'Jest', 'React Testing Library', 'Vite'],
+      title: 'Full-Stack Software Engineering Diploma & React Specialization',
+      issuer: 'Fullstack Academy (Amazon Career Choice)',
+      date: '2023 - Present',
+      skills: ['Full-Stack Development', 'React & Vite', 'Node.js', 'CLI / Terminal', 'Jest TDD'],
       verifyUrl: null,
     },
   ],

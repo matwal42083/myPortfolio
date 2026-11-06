@@ -1,44 +1,263 @@
-// ============================================================================
-// FILE 8 OF 12: src/pages/Credentials.jsx
-// [SDD-REQ-03 / SDD-REQ-07] Integrated Resume/Cover Letter Hub, Certifications & Education
-// ============================================================================
+import React, { useState } from 'react';
+import { profileData, credentialsData } from '../data/portfolioData';
+import { normalizeCredentialStatus } from '../utils/portfolioHelpers';
 
-// Step 1a: Import React, { useState } from 'react'
-// Step 1b: Import { profileData, credentialsData } from '../data/portfolioData'
-// Step 1c: Import { normalizeCredentialStatus } from '../utils/portfolioHelpers'
+import responsiveWebCert from '../assets/images/Copy of Responsive-Web-Design.jpg';
+import jsCert from '../assets/images/Copy of JavaScriptCertification.png';
+import jsAlgorithmsCert from '../assets/images/Copy of JavaScriptAlgorithms_DataStructures.png';
+import jsIntermediateCert from '../assets/images/Copy of javaScript_intermediate.png';
+import fullstackDiploma from '../assets/images/Copy of matthew-walton-fullstackDiploma.jpg';
 
-// Step 2: Declare and export default function Credentials({ resumePdfOverride })
-// Step 3a: Initialize a const with [activeDocTab, setActiveDocTab] equal to calling useState('resume')
-// Step 3b: Initialize a const with effectivePdfUrl equal to condition resumePdfOverride not strictly equal to undefined (resumePdfOverride !== undefined), ternary operator resumePdfOverride or profileData.resumePdfUrl
-// Step 3c: Initialize a const with resumeStatus equal to calling normalizeCredentialStatus({}, effectivePdfUrl)
+/**
+ * Maps certification IDs to their official certificate images and metadata.
+ */
+const certImagesMap = {
+  'cert-1': [
+    {
+      src: responsiveWebCert,
+      alt: 'freeCodeCamp Responsive Web Design Certification',
+      caption: 'freeCodeCamp — Responsive Web Design Certification',
+    },
+    {
+      src: jsCert,
+      alt: 'JavaScript Certification',
+      caption: 'JavaScript Foundations & Interactive Web Certification',
+    },
+  ],
+  'cert-2': [
+    {
+      src: jsAlgorithmsCert,
+      alt: 'freeCodeCamp JavaScript Algorithms and Data Structures Certification',
+      caption: 'freeCodeCamp — JavaScript Algorithms & Data Structures',
+    },
+    {
+      src: jsIntermediateCert,
+      alt: 'JavaScript Intermediate Certificate',
+      caption: 'JavaScript Intermediate Scope, Closures & Async',
+    },
+  ],
+  'cert-3': [
+    {
+      src: fullstackDiploma,
+      alt: 'Fullstack Academy Software Engineering Diploma',
+      caption: 'Fullstack Academy — 9-Month Fullstack Software Engineering Diploma',
+    },
+  ],
+};
 
-// Return these following JSX elements:
-// Step 4: Render a <section> element with className="page-section credentials-page"
-// Step 5: Inside <section>, render an <h1> heading displaying text 'Education, Certifications & Resume'
+/**
+ * Interactive Certificate Image Carousel with navigation arrows, dots, and fullscreen preview.
+ */
+function CertCarousel({ images, title }) {
+  const [currentIndex, setCurrentIndex] = useState(0);
 
-// Step 6: Render a <section> hub with className="resume-cover-hub" and aria-label="Resume and Cover Letter Hub"
-// Step 7: Inside the hub, render a <div> container with className="hub-controls"
-// Step 8: Render a <div> with className="tab-buttons" and role="tablist" containing two <button type="button" role="tab"> elements:
-//   - Tab 1: aria-selected={activeDocTab === 'resume'}, onClick={() => setActiveDocTab('resume')}, displaying text 'Web Resume'
-//   - Tab 2: aria-selected={activeDocTab === 'cover-letter'}, onClick={() => setActiveDocTab('cover-letter')}, displaying text 'Cover Letter'
-// Step 9: Use a ternary evaluating condition resumeStatus.hasResumePdf:
-//   - If true: render an <a> anchor with href={effectivePdfUrl}, target="_blank", rel="noopener noreferrer", className="btn-download-pdf", displaying text {resumeStatus.resumeFallbackNotice}
-//   - If false: render a <span className="pdf-fallback-badge" role="status"> displaying text {resumeStatus.resumeFallbackNotice}
+  if (!images || images.length === 0) return null;
 
-// Step 10: Use a ternary evaluating condition activeDocTab strictly equal to 'resume' (activeDocTab === 'resume'):
-//   - If true: render a <div className="doc-panel resume-panel" data-testid="resume-panel"> containing an <h2> 'Structured Resume Summary' and displaying profileData.resumeSummary details
-//   - If false: render a <div className="doc-panel cover-letter-panel" data-testid="cover-letter-panel"> containing an <h2> 'Candidate Cover Letter', <p> {profileData.coverLetter.greeting}, mapped paragraphs from profileData.coverLetter.bodyParagraphs, and <p> {profileData.coverLetter.signOff}
+  const prevSlide = () => {
+    setCurrentIndex((prev) => (prev === 0 ? images.length - 1 : prev - 1));
+  };
 
-// Step 11: Render a <section> with className="certifications-section" and aria-label="Development Certifications"
-// Step 12: Inside, render an <h2> heading displaying text 'Development Certifications' and a <div> with className="certifications-grid"
-// Step 13: Map over credentialsData.certifications: for each item cert, initialize a const with status equal to calling normalizeCredentialStatus(cert, effectivePdfUrl), rendering an <article key={cert.id} className="cert-card"> with:
-//   - <h3>{cert.title}</h3>
-//   - <p>{cert.issuer} ({cert.date})</p>
-//   - <span className="cert-badge">{status.badgeText}</span>
-//   - If status.isVerified is true: render an <a> anchor with href={status.verifyHref}, target="_blank", rel="noopener noreferrer" displaying text 'Verify Credential'
+  const nextSlide = () => {
+    setCurrentIndex((prev) => (prev === images.length - 1 ? 0 : prev + 1));
+  };
 
-// Step 14: Render a <section> with className="education-section" and aria-label="Education Timeline"
-// Step 15: Inside, render an <h2> heading displaying text 'Education & Coursework' and map over credentialsData.education: for each item edu, render an <article key={edu.id} className="education-card"> displaying edu.program, edu.institution, edu.period, and edu.focus
+  const currentImg = images[currentIndex];
 
-// LIVE HMR CHECK: Click "Credentials & Resume" in the Navbar to test the tab toggle live!
-// NEXT STEP: Once Credentials renders cleanly on screen, open src/pages/Projects.jsx
+  return (
+    <div className="cert-carousel">
+      <div className="carousel-slide">
+        <img
+          src={currentImg.src}
+          alt={currentImg.alt || title}
+          className="carousel-image"
+          title="Click to view full certificate in a new tab"
+          onClick={() => window.open(currentImg.src, '_blank')}
+        />
+        {images.length > 1 && (
+          <>
+            <button
+              type="button"
+              className="carousel-btn prev-btn"
+              onClick={prevSlide}
+              aria-label="Previous certificate"
+            >
+              &#10094;
+            </button>
+            <button
+              type="button"
+              className="carousel-btn next-btn"
+              onClick={nextSlide}
+              aria-label="Next certificate"
+            >
+              &#10095;
+            </button>
+          </>
+        )}
+      </div>
+
+      <div className="carousel-footer">
+        {images.length > 1 && (
+          <div className="carousel-controls">
+            <div className="carousel-dots">
+              {images.map((_, idx) => (
+                <button
+                  key={idx}
+                  type="button"
+                  className={`carousel-dot ${idx === currentIndex ? 'active' : ''}`}
+                  onClick={() => setCurrentIndex(idx)}
+                  aria-label={`Slide ${idx + 1}`}
+                />
+              ))}
+            </div>
+            <span className="carousel-counter">
+              {currentIndex + 1} / {images.length}
+            </span>
+          </div>
+        )}
+        <p className="carousel-caption">{currentImg.caption}</p>
+      </div>
+    </div>
+  );
+}
+
+/**
+ * Credentials, resume/cover letter hub, certifications showcase, and education timeline.
+ * Complies with [SDD-REQ-03 / SDD-REQ-07] supporting interactive tab switching,
+ * fallback badges, verified credential links, and optional PDF overrides.
+ *
+ * @param {Object} props
+ * @param {string} [props.resumePdfOverride] Optional PDF URL override for testing fallbacks.
+ */
+export default function Credentials({ resumePdfOverride }) {
+  const [activeDocTab, setActiveDocTab] = useState('resume');
+  const effectivePdfUrl =
+    resumePdfOverride !== undefined ? resumePdfOverride : profileData.resumePdfUrl;
+  const resumeStatus = normalizeCredentialStatus({}, effectivePdfUrl);
+
+  return (
+    <section className="page-section credentials-page">
+      <h1>Education, Certifications & Resume</h1>
+
+      {/* Interactive Resume and Cover Letter Hub */}
+      <section className="resume-cover-hub" aria-label="Resume and Cover Letter Hub">
+        <div className="hub-controls">
+          <div className="tab-buttons" role="tablist">
+            <button
+              type="button"
+              role="tab"
+              aria-selected={activeDocTab === 'resume'}
+              className={activeDocTab === 'resume' ? 'tab-btn active' : 'tab-btn'}
+              onClick={() => setActiveDocTab('resume')}
+            >
+              Web Resume
+            </button>
+            <button
+              type="button"
+              role="tab"
+              aria-selected={activeDocTab === 'cover-letter'}
+              className={activeDocTab === 'cover-letter' ? 'tab-btn active' : 'tab-btn'}
+              onClick={() => setActiveDocTab('cover-letter')}
+            >
+              Cover Letter
+            </button>
+          </div>
+
+          {resumeStatus.hasResumePdf ? (
+            <a
+              href={effectivePdfUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn-download-pdf"
+            >
+              {resumeStatus.resumeFallbackNotice}
+            </a>
+          ) : (
+            <span className="pdf-fallback-badge" role="status">
+              {resumeStatus.resumeFallbackNotice}
+            </span>
+          )}
+        </div>
+
+        {/* Dynamic Document Panel */}
+        {activeDocTab === 'resume' ? (
+          <div className="doc-panel resume-panel" data-testid="resume-panel">
+            <h2>Structured Resume Summary</h2>
+            {profileData.resumeSummary.experience.map((exp) => (
+              <div key={exp.id} className="resume-item">
+                <h3>{exp.title} — {exp.organization}</h3>
+                <p>{exp.period}</p>
+                <ul>
+                  {exp.highlights.map((item) => (
+                    <li key={item}>{item}</li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
+        ) : (
+          <div className="doc-panel cover-letter-panel" data-testid="cover-letter-panel">
+            <h2>Candidate Cover Letter</h2>
+            <p>{profileData.coverLetter.greeting}</p>
+            {profileData.coverLetter.bodyParagraphs.map((paragraph) => (
+              <p key={paragraph}>{paragraph}</p>
+            ))}
+            <p><strong>{profileData.coverLetter.signOff}</strong></p>
+          </div>
+        )}
+      </section>
+
+      {/* Certifications Grid with Carousels */}
+      <section className="certifications-section" aria-label="Development Certifications">
+        <h2>Development Certifications</h2>
+        <div className="certifications-grid">
+          {credentialsData.certifications.map((cert) => {
+            const status = normalizeCredentialStatus(cert, effectivePdfUrl);
+            return (
+              <article key={cert.id} className="cert-card">
+                <h3>{cert.title}</h3>
+                <p className="cert-issuer">{cert.issuer} ({cert.date})</p>
+
+                {/* Certificate Image Carousel */}
+                <CertCarousel images={certImagesMap[cert.id]} title={cert.title} />
+
+                {cert.skills && (
+                  <div className="cert-skills">
+                    {cert.skills.map((skill) => (
+                      <span key={skill} className="cert-skill-tag">{skill}</span>
+                    ))}
+                  </div>
+                )}
+
+                <div className="cert-card-footer">
+                  <span className="cert-badge">{status.badgeText}</span>
+                  {status.isVerified && (
+                    <a
+                      href={status.verifyHref}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="verify-link"
+                    >
+                      Verify Credential
+                    </a>
+                  )}
+                </div>
+              </article>
+            );
+          })}
+        </div>
+      </section>
+
+      {/* Education Timeline */}
+      <section className="education-section" aria-label="Education Timeline">
+        <h2>Education & Coursework</h2>
+        {credentialsData.education.map((edu) => (
+          <article key={edu.id} className="education-card">
+            <h3>{edu.program}</h3>
+            <p>{edu.institution} ({edu.period})</p>
+            <p>{edu.focus}</p>
+          </article>
+        ))}
+      </section>
+    </section>
+  );
+}

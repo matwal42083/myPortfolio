@@ -1,11 +1,14 @@
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useLocation, Link } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Home from "./pages/Home";
 import About from "./pages/About";
+import Credentials from "./pages/Credentials";
 import Footer from "./components/Footer";
 import "./App.css";
 
 export function AppRoutes() {
+  const location = useLocation();
+
   return (
     <div className="app-shell">
       {/* TOP: Main Header */}
@@ -18,31 +21,74 @@ export function AppRoutes() {
           <h3>Quick Navigation</h3>
           <nav>
             <ul>
-              <li><a href="#hero">Overview</a></li>
-              <li><a href="#highlights">Key Highlights</a></li>
-              <li><a href="#skills">Skills Matrix</a></li>
-              <li><a href="#projects">Showcased Projects</a></li>
+              <li>
+                <a href="#hero">Overview</a>
+              </li>
+              <li>
+                <a href="#highlights">Key Highlights</a>
+              </li>
+              <li>
+                <a href="#skills">Skills Matrix</a>
+              </li>
+              <li>
+                <a href="#projects">Showcased Projects</a>
+              </li>
             </ul>
           </nav>
         </aside>
 
         {/* RIGHT COLUMN: Breadcrumbs + Main Content */}
         <main className="content-pane">
-          <nav className="breadcrumbs" aria-label="Breadcrumbs">
-            <span className="breadcrumbs-link">Home</span>
-            <span className="separator">||</span>
-            <span className="current">Developer Portfolio</span>
-            <span className="breadcrumbs-link">About</span>
-            <span className="separator">||</span>
-            <span className="current">Developer Skills</span>
-          </nav>
+         <nav className="breadcrumbNav">
+           <ul className="breadcrumbList">
+             <li className="crumb">
+               <Link to="/" className="crumbLink">Home</Link>
+               <span className="crumbSeparator">||</span>
+               <span className="crumbCurrent">Developer Portfolio</span>
+             </li>
+
+             {(location.pathname === "/about" ||
+               location.pathname === "/credentials") && (
+               <li className="crumb">
+                 <Link to="/about" className="crumbLink">About</Link>
+                 <span className="crumbSeparator">||</span>
+                 <span className="crumbCurrent">Developer Skills</span>
+               </li>
+             )}
+
+             {location.pathname === "/credentials" && (
+               <li className="crumb">
+                 <Link to="/credentials" className="crumbLink">Credentials</Link>
+                 <span className="crumbSeparator">||</span>
+                 <span className="crumbCurrent">Education & Resume</span>
+               </li>
+             )}
+
+             {location.pathname === "/projects" && (
+               <li className="crumb">
+                 <Link to="/projects" className="crumbLink">Projects</Link>
+                 <span className="crumbSeparator">||</span>
+                 <span className="crumbCurrent">Project Gallery</span>
+               </li>
+             )}
+
+             {location.pathname === "/contact" && (
+               <li className="crumb">
+                 <Link to="/contact" className="crumbLink">Contact</Link>
+                 <span className="crumbSeparator">||</span>
+                 <span className="crumbCurrent">Get In Touch</span>
+               </li>
+             )}
+           </ul>
+         </nav>
 
           {/* Dynamic views switch here */}
           <div className="contentView">
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/about" element={<About />} />
-          </Routes>
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/about" element={<About />} />
+              <Route path="/credentials" element={<Credentials />} />
+            </Routes>
           </div>
         </main>
       </div>
