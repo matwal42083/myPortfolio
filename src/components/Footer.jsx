@@ -17,7 +17,7 @@ export default function Footer() {
         <a
           href={profileData.socialLinks.github}
           target="_blank"
-          rel="noopener noreferrer"
+          rel="noopener noreferrer" 
         >
           GitHub Profile
         </a>

@@ -49,7 +49,8 @@ describe('Multi-Page React Router Portfolio Integration (SDD-REQ-05 to SDD-REQ-0
     fireEvent.click(screen.getByRole('button', { name: /Send Message/i }));
     expect(screen.getAllByRole('alert')).toHaveLength(3);
 
-    fireEvent.change(screen.getByLabelText(/Name/i), { target: { value: 'Hiring Manager' } });
+    fireEvent.change(screen.getByLabelText(/First Name/i), { target: { value: 'Hiring' } });
+    fireEvent.change(screen.getByLabelText(/Last Name/i), { target: { value: 'Manager' } });
     fireEvent.change(screen.getByLabelText(/Email/i), { target: { value: 'manager@tech.io' } });
     fireEvent.change(screen.getByLabelText(/Message/i), { target: { value: 'Great portfolio!' } });
     fireEvent.click(screen.getByRole('button', { name: /Send Message/i }));

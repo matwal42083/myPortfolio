@@ -98,17 +98,21 @@ export function validateContactForm(formValues = {}) {
 
   if (!name) {
     errors.name = 'Name is required.';
+  } else if (name.length < 3) {
+    errors.name = 'Name must be at least 3 characters long.';
   }
 
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   if (!email) {
     errors.email = 'Email is required.';
-  } else if (!emailRegex.test(email)) {
+  } else if (email.length < 3 || !emailRegex.test(email)) {
     errors.email = 'Please enter a valid email address.';
   }
 
   if (!message) {
     errors.message = 'Message cannot be empty.';
+  } else if (message.length < 3) {
+    errors.message = 'Message must be at least 3 characters long.';
   }
 
   return {

@@ -134,6 +134,9 @@ export default function Credentials({ resumePdfOverride }) {
     resumePdfOverride !== undefined ? resumePdfOverride : profileData.resumePdfUrl;
   const resumeStatus = normalizeCredentialStatus({}, effectivePdfUrl);
 
+  const resume = profileData.resumeSummary;
+  const cover = profileData.coverLetter;
+
   return (
     <section className="page-section credentials-page">
       <h1>Education, Certifications & Resume</h1>
@@ -180,28 +183,223 @@ export default function Credentials({ resumePdfOverride }) {
 
         {/* Dynamic Document Panel */}
         {activeDocTab === 'resume' ? (
-          <div className="doc-panel resume-panel" data-testid="resume-panel">
-            <h2>Structured Resume Summary</h2>
-            {profileData.resumeSummary.experience.map((exp) => (
-              <div key={exp.id} className="resume-item">
-                <h3>{exp.title} — {exp.organization}</h3>
-                <p>{exp.period}</p>
-                <ul>
-                  {exp.highlights.map((item) => (
-                    <li key={item}>{item}</li>
-                  ))}
-                </ul>
+          <div className="doc-panel resume-panel resume-sheet" data-testid="resume-panel">
+            {/* Resume Letterhead Header */}
+            <header className="sheet-header">
+              <div className="sheet-headline">
+                <h2 className="sheet-candidate-name">{resume.name}</h2>
+                <p className="sheet-candidate-role">{resume.title}</p>
               </div>
-            ))}
+              <div className="sheet-contact-bar">
+                {resume.email && (
+                  <a href={`mailto:${resume.email}`} className="sheet-contact-link">
+                    {resume.email}
+                  </a>
+                )}
+                {resume.phone && (
+                  <>
+                    <span className="bullet-sep">•</span>
+                    <a
+                      href={`tel:${resume.phone.replace(/[^0-9+]/g, '')}`}
+                      className="sheet-contact-link"
+                    >
+                      {resume.phone}
+                    </a>
+                  </>
+                )}
+                {(resume.location || resume.city) && (
+                  <>
+                    <span className="bullet-sep">•</span>
+                    <a
+                      href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
+                        resume.city || resume.location
+                      )}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="sheet-contact-link"
+                    >
+                      📍 {resume.location || resume.city}
+                    </a>
+                  </>
+                )}
+                {resume.githubUrl && (
+                  <>
+                    <span className="bullet-sep">•</span>
+                    <a
+                      href={resume.githubUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="sheet-contact-link"
+                    >
+                      {resume.githubLabel || 'GitHub Profile'}
+                    </a>
+                  </>
+                )}
+                {resume.linkedinUrl && (
+                  <>
+                    <span className="bullet-sep">•</span>
+                    <a
+                      href={resume.linkedinUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="sheet-contact-link"
+                    >
+                      {resume.linkedinLabel || 'LinkedIn Profile'}
+                    </a>
+                  </>
+                )}
+              </div>
+            </header>
+
+            {/* Professional Summary */}
+            <section className="sheet-section">
+              <h3 className="sheet-section-title">Professional Summary</h3>
+              <p className="sheet-summary-text">{resume.professionalSummary}</p>
+            </section>
+
+            {/* Technical Competencies */}
+            <section className="sheet-section">
+              <h3 className="sheet-section-title">Technical Skills & Competencies</h3>
+              <div className="sheet-skills-columns">
+                <div className="sheet-skill-category">
+                  <strong>Frontend & Languages: </strong>
+                  <span>{resume.skills.hardSkills.join(' • ')}</span>
+                </div>
+                <div className="sheet-skill-category">
+                  <strong>Platforms, Tools & AI: </strong>
+                  <span>{resume.skills.softSkills.join(' • ')}</span>
+                </div>
+              </div>
+            </section>
+
+            {/* Experience */}
+            <section className="sheet-section">
+              <h3 className="sheet-section-title">Technical Experience</h3>
+              {resume.experience.map((exp) => (
+                <div key={exp.id} className="sheet-entry">
+                  <div className="sheet-entry-header">
+                    <div>
+                      <h4 className="sheet-entry-title">{exp.title}</h4>
+                      <span className="sheet-entry-org">{exp.organization}</span>
+                    </div>
+                    <span className="sheet-entry-period">{exp.period}</span>
+                  </div>
+                  <ul className="sheet-entry-bullets">
+                    {exp.highlights.map((item) => (
+                      <li key={item}>{item}</li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
+            </section>
+
+            {/* Education & Training */}
+            <section className="sheet-section">
+              <h3 className="sheet-section-title">Education & Training</h3>
+              {(resume.education || credentialsData.education).map((edu) => (
+                <div key={edu.id} className="sheet-entry">
+                  <div className="sheet-entry-header">
+                    <div>
+                      <h4 className="sheet-entry-title">{edu.program}</h4>
+                      <span className="sheet-entry-org">{edu.institution}</span>
+                    </div>
+                    <span className="sheet-entry-period">{edu.period}</span>
+                  </div>
+                  <p className="sheet-entry-desc">{edu.focus}</p>
+                </div>
+              ))}
+            </section>
           </div>
         ) : (
-          <div className="doc-panel cover-letter-panel" data-testid="cover-letter-panel">
-            <h2>Candidate Cover Letter</h2>
-            <p>{profileData.coverLetter.greeting}</p>
-            {profileData.coverLetter.bodyParagraphs.map((paragraph) => (
-              <p key={paragraph}>{paragraph}</p>
-            ))}
-            <p><strong>{profileData.coverLetter.signOff}</strong></p>
+          <div className="doc-panel cover-letter-panel cover-letter-sheet" data-testid="cover-letter-panel">
+            {/* Formal Letterhead */}
+            <header className="letter-header">
+              <div className="letter-sender">
+                <h2 className="letter-sender-name">{cover.senderName}</h2>
+                <p className="letter-sender-role">{cover.senderTitle}</p>
+              </div>
+              <div className="letter-sender-meta">
+                {cover.senderEmail && (
+                  <a href={`mailto:${cover.senderEmail}`} className="letter-sender-link">
+                    {cover.senderEmail}
+                  </a>
+                )}
+                {cover.senderPhone && (
+                  <a
+                    href={`tel:${cover.senderPhone.replace(/[^0-9+]/g, '')}`}
+                    className="letter-sender-link"
+                  >
+                    {cover.senderPhone}
+                  </a>
+                )}
+                {(cover.senderLocation || cover.senderCity) && (
+                  <a
+                    href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
+                      cover.senderCity || cover.senderLocation
+                    )}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="letter-sender-link"
+                  >
+                    📍 {cover.senderLocation || cover.senderCity}
+                  </a>
+                )}
+                {cover.senderGithubUrl && (
+                  <a
+                    href={cover.senderGithubUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="letter-sender-link"
+                  >
+                    {cover.senderGithubLabel || 'GitHub Profile'}
+                  </a>
+                )}
+                {cover.senderLinkedinUrl && (
+                  <a
+                    href={cover.senderLinkedinUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="letter-sender-link"
+                  >
+                    {cover.senderLinkedinLabel || 'LinkedIn Profile'}
+                  </a>
+                )}
+              </div>
+            </header>
+
+            <div className="letter-divider"></div>
+
+            {/* Recipient Block & Date */}
+            <div className="letter-meta-block">
+              <p className="letter-date">{cover.date}</p>
+              <div className="letter-recipient">
+                <strong>To:</strong> {cover.recipientName}<br />
+                {cover.recipientTitle && (
+                  <span>{cover.recipientTitle}<br /></span>
+                )}
+                {cover.companyName && (
+                  <span>{cover.companyName}<br /></span>
+                )}
+                <strong>Subject:</strong> {cover.subject}
+              </div>
+            </div>
+
+            {/* Salutation */}
+            <p className="letter-greeting">{cover.greeting}</p>
+
+            {/* Letter Body */}
+            <div className="letter-body">
+              {cover.bodyParagraphs.map((paragraph) => (
+                <p key={paragraph} className="letter-paragraph">{paragraph}</p>
+              ))}
+            </div>
+
+            {/* Sign-off & Formal Signature */}
+            <div className="letter-closing">
+              <p>{cover.closing}</p>
+              <div className="letter-signature">{cover.signatureName}</div>
+              <p className="letter-signature-title">{cover.signatureTitle}</p>
+            </div>
           </div>
         )}
       </section>

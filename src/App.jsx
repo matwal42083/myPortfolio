@@ -3,6 +3,9 @@ import Navbar from "./components/Navbar";
 import Home from "./pages/Home";
 import About from "./pages/About";
 import Credentials from "./pages/Credentials";
+import Projects from "./pages/Projects";
+import Contact from "./pages/Contact";
+import NotFound from "./pages/NotFound";
 import Footer from "./components/Footer";
 import "./App.css";
 
@@ -48,7 +51,9 @@ export function AppRoutes() {
              </li>
 
              {(location.pathname === "/about" ||
-               location.pathname === "/credentials") && (
+               location.pathname === "/credentials" ||
+               location.pathname === "/projects" ||
+               location.pathname === "/contact") && (
                <li className="crumb">
                  <Link to="/about" className="crumbLink">About</Link>
                  <span className="crumbSeparator">||</span>
@@ -56,7 +61,9 @@ export function AppRoutes() {
                </li>
              )}
 
-             {location.pathname === "/credentials" && (
+             {(location.pathname === "/credentials" ||
+               location.pathname === "/projects" ||
+               location.pathname === "/contact") && (
                <li className="crumb">
                  <Link to="/credentials" className="crumbLink">Credentials</Link>
                  <span className="crumbSeparator">||</span>
@@ -64,7 +71,8 @@ export function AppRoutes() {
                </li>
              )}
 
-             {location.pathname === "/projects" && (
+             {(location.pathname === "/projects" ||
+               location.pathname === "/contact") && (
                <li className="crumb">
                  <Link to="/projects" className="crumbLink">Projects</Link>
                  <span className="crumbSeparator">||</span>
@@ -88,6 +96,9 @@ export function AppRoutes() {
               <Route path="/" element={<Home />} />
               <Route path="/about" element={<About />} />
               <Route path="/credentials" element={<Credentials />} />
+              <Route path="/projects" element={<Projects />} />
+              <Route path="/contact" element={<Contact />} />
+              <Route path="*" element={<NotFound />} />
             </Routes>
           </div>
         </main>
@@ -99,31 +110,3 @@ export function AppRoutes() {
 }
 
 export default AppRoutes;
-// Step 1: Import { BrowserRouter, Routes, Route } from 'react-router-dom'
-// Step 2: Import layout components: Navbar from './components/Navbar' and Footer from './components/Footer'
-// Step 3: Import page components:
-//   - Home from './pages/Home'
-//   - About from './pages/About'
-//   - Credentials from './pages/Credentials'
-//   - Projects from './pages/Projects'
-//   - Contact from './pages/Contact'
-//   - NotFound from './pages/NotFound'
-
-// Step 4: Declare and export function AppRoutes()
-
-// Return these following JSX elements:
-// Step 5: Render a <div className="app-shell">
-// Step 6: Inside the shell, render <Navbar />
-// Step 7: Render a <main className="main-content"> container wrapping <Routes>
-// Step 8: Inside <Routes>, declare 6 <Route> elements:
-//   - <Route path="/" element={<Home />} />
-//   - <Route path="/about" element={<About />} />
-//   - <Route path="/credentials" element={<Credentials />} />
-//   - <Route path="/projects" element={<Projects />} />
-//   - <Route path="/contact" element={<Contact />} />
-//   - <Route path="*" element={<NotFound />} />
-// Step 9: Render <Footer /> below </main>
-
-// Step 10: In export default function App(), return //<BrowserRouter><AppRoutes /></BrowserRouter>
-
-// NEXT STEP: Run `npx jest --watchAll=false` to verify all 9 tests across both suites are GREEN!

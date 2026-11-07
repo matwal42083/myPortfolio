@@ -15,6 +15,18 @@ export const profileData = {
   bio_3: "Right now, my primary focus is on frontend development. I want to build a strong foundation as a frontend developer before eventually working my way into the backend to become full-stack. I refuse to adopt a fake-it-till-you-make-it mentality. The Systems, Platforms, and Productivity card reflects the modern environments I rely on today. My current development ecosystem revolves around VS Code, WSL2, and Linux Ubuntu, and I streamline daily operations by leveraging Google Sheets, Apps Script, Microsoft Word, and Excel.",
   resumePdfUrl: '/resume-matthew-walton.pdf',
   resumeSummary: {
+    name: 'Matthew Walton',
+    title: 'Fullstack & Frontend Developer with AI',
+    email: 'matwal42083@gmail.com',
+    phone: '417-401-8145',
+    location: '3832 W San Fernando St, Springfield, MO 65803',
+    city: 'Springfield, MO',
+    githubUrl: 'https://github.com/matwal42083',
+    githubLabel: 'github.com/matwal42083',
+    linkedinUrl: 'https://linkedin.com/in/matwal',
+    linkedinLabel: 'linkedin.com/in/matwal',
+    professionalSummary:
+      'Dedicated Full-Stack Developer with specialized expertise in agentic AI workflows, actively seeking a debut role to bring my technical skills to a professional production environment. With a foundation built through intensive bootcamp training and continuous self-led learning, I am targeting an initial frontend position to establish a strong professional rhythm and deliver immediate value. My long-term roadmap is to incrementally master back-end architecture until I am contributing as a complete full-stack engineer. I am highly motivated to join a solid, forward-thinking company where I can learn from experienced peers, solve complex problems without over-complication, and grow alongside the team.',
     skills: {
       hardSkills: [
         'HTML',
@@ -26,6 +38,11 @@ export const profileData = {
         'VS Code',
         'Antigravity 2.0',
         'Antigravity CLI',
+        'Jest',
+        'Git',
+        'GitHub',
+        'GitHub Actions',
+        'Command line interface',
       ],
       softSkills: [
         'MS Windows',
@@ -44,11 +61,11 @@ export const profileData = {
     experience: [
       {
         id: 'exp-1',
-        title: 'Independent AI & Full-Stack Developer (Career Launch Portfolio)',
-        organization: 'Self-Directed Engineering & Antivibe Framework',
+        title: ' AI Fullstack & frontend Developer (Career Launch Portfolio)',
+        organization: 'Self-Directed Engineering & Antivibe Coding workflow',
         period: '2025 - Present',
         highlights: [
-          'Designed and built the Antivibe 50/50 AI/BI engineering workflow combining Spec-Driven, Test-Driven, and Learn-Driven Development.',
+          'Designed and built the Antivibe Coding 50/50 AI and Human driven engineering workflow combining Spec-Driven, Test-Driven, and Learn-Driven Development, centered around build Artifacts.',
           'Engineered modular multi-page React + Vite web applications verified with automated Jest and React Testing Library suites.',
           'Developed custom WSL2 Linux automation hooks, CLI workflows, and side-by-side GitHub showcase interfaces.',
         ],
@@ -62,11 +79,29 @@ export const profileData = {
     ],
   },
   coverLetter: {
+    senderName: 'Matthew Walton',
+    senderTitle: 'Fullstack & Frontend Developer with AI',
+    senderEmail: 'matwal42083@gmail.com',
+    senderPhone: '417-401-8145',
+    senderLocation: '3832 W San Fernando St, Springfield, MO 65803',
+    senderCity: 'Springfield, MO',
+    senderGithubUrl: 'https://github.com/matwal42083',
+    senderGithubLabel: 'github.com/matwal42083',
+    senderLinkedinUrl: 'https://linkedin.com/in/matwal',
+    senderLinkedinLabel: 'linkedin.com/in/matwal',
+    date: 'November 2026',
+    recipientName: 'Hiring Manager & Technical Recruiting Team',
+    recipientTitle: 'Technical Recruiting & Engineering Leadership',
+    companyName: 'Prospective Engineering Team',
+    subject: 'Fullstack & Frontend Developer Application',
     greeting: 'Dear Hiring Manager & Technical Recruiting Team,',
     bodyParagraphs: [
       'Thank you for visiting my developer portfolio. As an emerging Fullstack & Frontend Developer ready to launch my professional engineering career, I focus on building clean, testable, and maintainable web applications rather than relying on copy-paste shortcuts.',
       'To accelerate my growth and code quality, I created my own Antivibe (SDD/TDD/LDD) methodology inside WSL2 Ubuntu and React + Vite. Every project showcased here pairs a live interactive view with its underlying GitHub repository so you can inspect my code, tests, and commit history firsthand.',
     ],
+    closing: 'Sincerely,',
+    signatureName: 'Matthew Walton',
+    signatureTitle: 'Fullstack & Frontend Developer',
     signOff: 'Sincerely, Matthew Walton (Matwal)',
   },
   socialLinks: {
@@ -147,11 +182,27 @@ export const credentialsData = {
   education: [
     {
       id: 'edu-1',
-      institution: 'Independent Software Engineering & AI Development Track',
-      program: 'Frontend & Full-Stack Web Development',
-      period: '2025 - Present',
+      institution: 'Fullstack Academy (Amazon Career Choice)',
+      program: 'Full-Stack Software Engineering Bootcamp',
+      period: 'Feb 2023 - Oct 2023',
       focus:
-        'Hands-on mastery of HTML, CSS, JavaScript, React, Linux WSL2 Ubuntu, Git/GitHub worktrees, and Test-Driven Development.',
+        'Completed rigorous 9-month immersive program covering full-stack web development, foundational JavaScript, React, Node.js, CLI navigation, and Git/GitHub collaboration—mastered through core software engineering principles without AI shortcuts.',
+    },
+    {
+      id: 'edu-2',
+      institution: 'Codecademy',
+      program: 'Frontend & Full-Stack Career Curriculum',
+      period: '2024 - Present',
+      focus:
+        'Continuous self-directed technical training focusing on modern JavaScript (ES6+), React component architecture, and structured full-stack engineering paths.',
+    },
+    {
+      id: 'edu-3',
+      institution: 'freeCodeCamp',
+      program: 'Verified Developer Certifications & Interactive Labs',
+      period: '2024 - Present',
+      focus:
+        'Extensive hands-on coding curriculum and project verification across Responsive Web Design, JavaScript Algorithms & Data Structures, and modern frontend styling.',
     },
   ],
 };
