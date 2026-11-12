@@ -257,24 +257,60 @@ export default function Credentials({ resumePdfOverride }) {
               <p className="sheet-summary-text">{resume.professionalSummary}</p>
             </section>
 
-            {/* Technical Competencies */}
+            {/* Technical Skills */}
             <section className="sheet-section">
-              <h3 className="sheet-section-title">Technical Skills & Competencies</h3>
+              <h3 className="sheet-section-title">Technical Skills</h3>
               <div className="sheet-skills-columns">
-                <div className="sheet-skill-category">
-                  <strong>Frontend & Languages: </strong>
-                  <span>{resume.skills.hardSkills.join(' • ')}</span>
-                </div>
-                <div className="sheet-skill-category">
-                  <strong>Platforms, Tools & AI: </strong>
-                  <span>{resume.skills.softSkills.join(' • ')}</span>
-                </div>
+                {resume.technicalSkills ? (
+                  resume.technicalSkills.map((group) => (
+                    <div key={group.category} className="sheet-skill-category">
+                      <strong>{group.category}: </strong>
+                      <span>{group.items.join(', ')}</span>
+                    </div>
+                  ))
+                ) : (
+                  <>
+                    <div className="sheet-skill-category">
+                      <strong>Frontend & Languages: </strong>
+                      <span>{resume.skills.hardSkills.join(' • ')}</span>
+                    </div>
+                    <div className="sheet-skill-category">
+                      <strong>Platforms, Tools & AI: </strong>
+                      <span>{resume.skills.softSkills.join(' • ')}</span>
+                    </div>
+                  </>
+                )}
               </div>
             </section>
 
-            {/* Experience */}
+            {/* Technical Projects & Architecture */}
+            {resume.technicalProjects && (
+              <section className="sheet-section">
+                <h3 className="sheet-section-title">Technical Projects & Architecture</h3>
+                {resume.technicalProjects.map((proj) => (
+                  <div key={proj.id} className="sheet-entry">
+                    <div className="sheet-entry-header">
+                      <div>
+                        <h4 className="sheet-entry-title">{proj.title}</h4>
+                        {proj.organization && (
+                          <span className="sheet-entry-org">{proj.organization}</span>
+                        )}
+                      </div>
+                      {proj.period && <span className="sheet-entry-period">{proj.period}</span>}
+                    </div>
+                    <ul className="sheet-entry-bullets">
+                      {proj.highlights.map((item) => (
+                        <li key={item}>{item}</li>
+                      ))}
+                    </ul>
+                  </div>
+                ))}
+              </section>
+            )}
+
+            {/* Professional Experience */}
             <section className="sheet-section">
-              <h3 className="sheet-section-title">Technical Experience</h3>
+              <h3 className="sheet-section-title">Professional Experience</h3>
               {resume.experience.map((exp) => (
                 <div key={exp.id} className="sheet-entry">
                   <div className="sheet-entry-header">
@@ -293,9 +329,9 @@ export default function Credentials({ resumePdfOverride }) {
               ))}
             </section>
 
-            {/* Education & Training */}
+            {/* Education & Continuous Learning */}
             <section className="sheet-section">
-              <h3 className="sheet-section-title">Education & Training</h3>
+              <h3 className="sheet-section-title">Education & Continuous Learning</h3>
               {(resume.education || credentialsData.education).map((edu) => (
                 <div key={edu.id} className="sheet-entry">
                   <div className="sheet-entry-header">
